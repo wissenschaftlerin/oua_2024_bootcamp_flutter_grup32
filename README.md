@@ -4,7 +4,7 @@ Proje Adı:
 
 
 
-# 🤖 Takım Üyeleri
+## 🤖 Takım Üyeleri
 
 ## 🚀 [Yaren ÇOLPAN](https://www.linkedin.com/in/yarencolpan/)
 ## 🚀 [Yasin Kaan YİĞİT](https://www.linkedin.com/in/yasinkaanyigit1/)
