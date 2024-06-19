@@ -17,6 +17,7 @@ Proje Adı:
 
 
 
+  </details>
 
 ----
 
