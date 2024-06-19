@@ -4,7 +4,7 @@ Proje Adı:
 
 
 ----
-  ![sprints](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
+
 
                                       
                                                                            
@@ -12,12 +12,15 @@ Proje Adı:
   <details>
     <summary><h1>Sprint 1</h1></summary>
 
+  ![sprints](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
+
 
   <details>
 
 
 
   </details>
+</ul>
 
 ----
 
