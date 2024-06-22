@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "368212350287",
+    "project_id": "fit4try-3515e",
+    "storage_bucket": "fit4try-3515e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368212350287:android:320f09c67e677da8eba13a",
+        "android_client_info": {
+          "package_name": "com.example.fit4try"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxorcIqjyln6jurF1T92HlvZTUHJ7oilg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
