@@ -1,1 +1,1 @@
-//5 screen buraya
+//5 screen burayass
