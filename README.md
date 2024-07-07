@@ -40,8 +40,8 @@ Proje Adı:  Fit4Try
   - Giydirmede kullanılacak olan [yapay zeka modelini](https://huggingface.co/spaces/levihsu/OOTDiffusion) araştırıp bulduk.
   - Bu modeli test ettik ve Google Cloud ile API'ye dönüştürüp kullanılabilir hale getirdik.
 
-  ![Yapay Zeka Modeli](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
-  ![Google Cloud API](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
+  ![Yapay Zeka Modeli](
+  ![Google Cloud API](
 
 
   <details>
