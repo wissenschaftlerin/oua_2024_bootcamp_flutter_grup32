@@ -6,6 +6,10 @@ Proje Adı:  Fit4Try
 
 <details>
   <summary><h1>Sprint 1</h1></summary>
+  
+
+  ![Sprint1](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
+  Tarihler: 15 Haziran - 7 Temmuz
 
   ## Proje Özeti
 
@@ -13,13 +17,16 @@ Proje Adı:  Fit4Try
 
   ## Yapılan Çalışmalar
 
+  ### 14 Haziran'da ilk toplantı yapıldı.
+  ![image](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/b33be272-035b-4fcf-9893-157567b2fec5)
+
+
   ### 1. Uygulama Tasarımı
   - Uygulamanın genel tasarımını oluşturduk.
   - Giriş, çıkış ve intro ekranlarını tasarladık.
   - Kullanıcıların stil ve tarzlarını öğrenmek için gerekli ekranları oluşturduk.
   - Kullanıcıların ne tarz şeyler giydiğini öğrenmek için anket ve form ekranları tasarladık.
 
-  ![Uygulama Tasarımı](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
 
   ### 2. Giriş ve Çıkış İşlemleri
   - Kullanıcıların uygulamaya giriş ve çıkış yapabilmesi için gerekli altyapıyı oluşturduk.
