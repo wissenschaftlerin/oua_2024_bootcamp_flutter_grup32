@@ -9,6 +9,7 @@ Proje Adı:  Fit4Try
   
 
   ![Sprint1](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
+  
   Tarihler: 15 Haziran - 7 Temmuz
 
   ## Proje Özeti
@@ -32,8 +33,8 @@ Proje Adı:  Fit4Try
   - Kullanıcıların uygulamaya giriş ve çıkış yapabilmesi için gerekli altyapıyı oluşturduk.
   - Firebase Authentication kullanarak kullanıcıların kimlik doğrulamasını sağladık.
 
-  ![Giriş Ekranı](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
-  ![Çıkış Ekranı](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
+  ![Giriş Ekranı](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/51e6761b-677e-406f-9a28-61b47b9a4228)
+  ![Giriş Ekranı 2](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/23d5b170-ea42-47f8-b20e-bfd7ce511cee)
 
   ### 3. Yapay Zeka Modeli
   - Giydirmede kullanılacak olan yapay zeka modelini araştırıp bulduk.
