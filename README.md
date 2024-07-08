@@ -65,6 +65,8 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 
 
   <details>
+  ![Sprint1Scrum](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/f1cedffc-d479-401f-8d3e-07c5df295039)
+
 
 
 
