@@ -75,9 +75,7 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 ## Sprint Retrospective
 - Takımın her üyesi yapacağı görevleri miro üzerine yazması kararı alınmıştır.
 - Tahmin puanları gözden geçirilmeli ve sprint planlama toplantılarında gerekli geri bildirimlerin developer'lar tarafından verildiğine emin olunmalı.
-
-</ul>
-
+ 
 ----
 
 ## 🤖 Takım Üyeleri
