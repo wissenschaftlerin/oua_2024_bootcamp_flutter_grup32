@@ -84,8 +84,8 @@ Tahmin puanları gözden geçirilmeli ve sprint planlama toplantılarında gerek
 
 ## 🤖 Takım Üyeleri
 
-### 🚀 [Yaren ÇOLPAN](https://www.linkedin.com/in/yarencolpan/)
-### 🚀 [Yasin Kaan YİĞİT](https://www.linkedin.com/in/yasinkaanyigit1/)
-### 🚀 [Yunus Emre GÜMÜŞ](https://www.linkedin.com/in/yunusemregumus/)
-### 🚀 [Zehra Nur BAŞ](https://www.linkedin.com/in/zehranurba%C5%9F/)
-### 🚀 [Zeynep Feyza ATABEY](https://www.linkedin.com/in/zeynepfeyzatabey/)
+### 🚀 [Yaren ÇOLPAN](https://www.linkedin.com/in/yarencolpan/) (Developer)
+### 🚀 [Yasin Kaan YİĞİT](https://www.linkedin.com/in/yasinkaanyigit1/) (Developer)
+### 🚀 [Yunus Emre GÜMÜŞ](https://www.linkedin.com/in/yunusemregumus/) (Product Owner, UI&UX)
+### 🚀 [Zehra Nur BAŞ](https://www.linkedin.com/in/zehranurba%C5%9F/) (Developer)
+### 🚀 [Zeynep Feyza ATABEY](https://www.linkedin.com/in/zeynepfeyzatabey/) (Scrum Master)
