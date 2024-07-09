@@ -67,12 +67,11 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 ![Sprint1Scrum](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/f1cedffc-d479-401f-8d3e-07c5df295039)
 
 Sprint Review
-Alınan Kararlar:
 
-Veritabanı oluşturması, email ile toplanacak veriler için gerekli görülmüştür. Fakat veritabanı form sayfası için gerekli olmamıştır. O sebeple PBI bir sonraki sprint'e aktarılmıştır.
+Alınan Kararlar:
+Veritabanı oluşturması, email ile toplanacak veriler için gerekli görülmüştür. 
 Çıkan ürünün çalışmasında ve testlerinde bir problem görülmemiştir.
 Ekstra koyulması gereken özellikler belirlenmiştir.
-Sprint Review Katılımcıları:
 
 Sprint Retrospective
 Takım içindeki görev dağılımıyla ilgili düzenleme yapılması kararı alınmıştır.
