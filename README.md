@@ -66,17 +66,15 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 
 ![Sprint1Scrum](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/f1cedffc-d479-401f-8d3e-07c5df295039)
 
-Sprint Review
+---
+## Alınan Kararlar:
+- Ekipteki roller belirlenmiştir.
+- Ekstra eklenmesi gereken özellikler belirlenmiştir.
+- Uygulama fikri ve özellikleri netleştirilmiştir.
 
-Alınan Kararlar:
-Veritabanı oluşturması, email ile toplanacak veriler için gerekli görülmüştür. 
-Çıkan ürünün çalışmasında ve testlerinde bir problem görülmemiştir.
-Ekstra koyulması gereken özellikler belirlenmiştir.
-
-Sprint Retrospective
-Takım içindeki görev dağılımıyla ilgili düzenleme yapılması kararı alınmıştır.
-Takımın her üyesi yapacağı görevleri scrum üzerinde yazması kararı alınmıştır.
-Tahmin puanları gözden geçirilmeli ve sprint planlama toplantılarında gerekli geri bildirimlerin developer'lar tarafından verildiğine emin olunmalı.
+## Sprint Retrospective
+- Takımın her üyesi yapacağı görevleri miro üzerine yazması kararı alınmıştır.
+- Tahmin puanları gözden geçirilmeli ve sprint planlama toplantılarında gerekli geri bildirimlerin developer'lar tarafından verildiğine emin olunmalı.
 
 </ul>
 
