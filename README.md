@@ -19,6 +19,32 @@
 
 Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet önerileri sunan bir mobil uygulama geliştirmeye karar verdik. Bu uygulama, kullanıcıların stillerini analiz ederek, kişiselleştirilmiş kıyafet önerileri sunmayı hedeflemektedir.
 
+Tabii, aşağıda Fit4Try projesine uygun olarak ürün özellikleri ve hedef kitleyi de içeren güncellenmiş proje özetini bulabilirsiniz:
+
+---
+
+# Fit4Try Proje Özeti
+
+## Proje Özeti
+
+Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet önerileri sunan yenilikçi bir mobil uygulamadır. Bu uygulama, kullanıcıların stillerini analiz ederek kişiselleştirilmiş kıyafet önerileri sunmayı hedeflemektedir. Kullanıcı dostu arayüzü ve yapay zeka destekli algoritması sayesinde, kullanıcıların giyim tercihlerine en uygun kombinleri önerir.
+
+## Ürün Özellikleri
+
+- **Stil Analizi:** Kullanıcıların stil ve tercihlerini öğrenmek için anket ve form ekranları.
+- **Kişiselleştirilmiş Öneriler:** Kullanıcının stiline uygun kıyafet önerileri sunan yapay zeka destekli algoritma.
+- **Kullanıcı Profili:** Kullanıcıların stillerini ve tercihlerini kaydedebilecekleri profil sayfası.
+- **Giriş ve Çıkış İşlemleri:** Firebase Authentication ile güvenli kullanıcı kimlik doğrulaması.
+- **Sezgisel Arayüz:** Kullanıcı dostu ve sezgisel arayüz tasarımı.
+- **Yapay Zeka Modeli:** Giyim önerileri için kullanılan gelişmiş yapay zeka modeli.
+
+## Hedef Kitle
+
+- **Genç Yetişkinler:** Moda konusunda önerilere açık, yeni stil denemek isteyen genç yetişkinler.
+- **Moda Tutkunları:** Moda ve stil konusunda önerilere ihtiyaç duyan ve trendleri takip eden kullanıcılar.
+- **Zamanı Kısıtlı Bireyler:** Giyim konusunda hızlı ve etkili önerilere ihtiyaç duyan, zamanı kısıtlı kullanıcılar.
+- **Stilini Geliştirmek İsteyenler:** Kendi stilini keşfetmek ve geliştirmek isteyen herkes.
+
 ## Yapılan Çalışmalar
 
 ### 1. İlk Toplantı (14 Haziran)
