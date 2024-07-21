@@ -167,6 +167,7 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 
 ## Sprint Retrospective
 - Uygulama tasarımında ilerlenmiştir.
+- Giriş kısmı, dil seçenekleri ve yardım sayfasının kodları eklenmiştir.
 
 </details>
 
