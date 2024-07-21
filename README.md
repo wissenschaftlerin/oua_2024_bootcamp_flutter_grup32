@@ -126,7 +126,7 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 - Uygulamanın DM kısmını tasarladık.
 - Yardım merkezi ve çıkış yap kısımlarını tasarladık.
 
-### Screenshootlar
+### Screenshotlar
 
 #### Şifre Ayarları Sayfası
   
