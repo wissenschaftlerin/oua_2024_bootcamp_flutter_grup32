@@ -126,6 +126,22 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 - Uygulamanın DM kısmını tasarladık.
 - Yardım merkezi ve çıkış yap kısımlarını tasarladık.
 
+### Screenshootlar
+
+#### Şifre Ayarları Sayfası
+  
+![WhatsApp Bild 2024-07-21 um 14 41 48_7a52af0c](https://github.com/user-attachments/assets/17fa99fe-5af8-496e-92ed-cb0a8e7836b5) ![WhatsApp Bild 2024-07-21 um 14 41 49_460635ca](https://github.com/user-attachments/assets/5344cf69-df15-4a31-b992-d3195e9bed54) ![WhatsApp Bild 2024-07-21 um 14 41 49_7164dd66](https://github.com/user-attachments/assets/86137036-5f09-464e-bcba-a2a22de450ff)
+
+
+#### Dil Seçenekleri Ayarları 
+
+![WhatsApp Bild 2024-07-21 um 14 41 49_a1554e05](https://github.com/user-attachments/assets/b1c94ec4-0da8-470a-8e17-a6fff57b2ed6) ![WhatsApp Bild 2024-07-21 um 14 41 49_e211ae3e](https://github.com/user-attachments/assets/8326be25-6a00-4eed-b9fa-64bbb3588662)
+
+#### Yardım Merkezi
+
+![WhatsApp Bild 2024-07-21 um 14 41 50_e9683d3b](https://github.com/user-attachments/assets/b3d2044c-00fa-4fbd-9dee-c6a8bc27d0e3) ![WhatsApp Bild 2024-07-21 um 14 41 50_7c3a5b9f](https://github.com/user-attachments/assets/de7a9c09-4bb1-4401-8cc6-1a4edeba7e6d)
+
+
 ## Sprint Notları
 
 - User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
