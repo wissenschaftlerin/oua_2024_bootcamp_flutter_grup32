@@ -157,7 +157,7 @@ Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet ö
 
 
 
-
+</details>
 
 
 ## 🤖 Takım Üyeleri
