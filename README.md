@@ -102,7 +102,51 @@ Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet ö
 - Takımın her üyesi yapacağı görevleri miro üzerine yazması kararı alınmıştır.
 - Tahmin puanları gözden geçirilmeli ve sprint planlama toplantılarında gerekli geri bildirimlerin developer'lar tarafından verildiğine emin olunmalı.
  
-----
+</details>
+
+<details>
+  <summary><h1>Sprint 2</h1></summary>
+
+# Sprint 2 Review
+
+**Sprint Tarihleri:** 8 Temmuz - 21 Temmuz
+
+## Yapılan Çalışmalar
+### 1. İlk Toplantı (8 Temmuz)
+
+İlk toplantımızı 8 Temmuz'da gerçekleştirdik. Toplantıda proje hedeflerimizi, görev dağılımını ve sprint süresince yapılacak işleri belirledik.
+
+### 2. İkinci Toplantı (14 Temmuz)
+
+İkinci toplantımızı 15 Temmuz'da gerçekleştirdik. Bu toplantıda sprint ilerleyişini değerlendirdik ve gerekli düzenlemeleri yaptık.
+
+### 3. Uygulama Geliştirme
+
+- Kullanıcı profili sayfasını tamamladık.
+- Stil analizi ekranlarını ve algoritmalarını geliştirdik.
+- Giyim önerileri için yapay zeka modelini entegre ettik ve test ettik.
+
+### 4. Firebase Entegrasyonu
+
+- Kullanıcı verilerini Firebase Realtime Database'e kaydedecek şekilde ayarladık.
+- Kullanıcı profillerini Firebase üzerinden yönetilecek şekilde yapılandırdık.
+
+## Sprint Notları
+
+- User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
+- Sprint içinde tamamlanması tahmin edilen puan: **90 Puan**
+- Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 380 puanlık backlog bulunmaktadır. İlk sprintte tamamlanan 100 puandan sonra, bu sprintte 90 puan tamamlanması hedeflenmiştir.
+- Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.
+- Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task)
+
+
+
+
+
+
+
+
+
 
 ## 🤖 Takım Üyeleri
 
