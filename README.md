@@ -7,9 +7,8 @@
 
 <details>
   <summary><h1>Sprint 1</h1></summary>
-  
 
-  ![Sprint1](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/assets/72699045/9f4e5eb0-5caa-4e6a-8f63-afef74da345e)
+  ![Sprint1](https://github.com/user-attachments/assets/dfccd73f-37ec-4dfe-a492-e1fde0bd88ae)
   
 # Sprint 1 Review
 
@@ -108,6 +107,7 @@ Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet ö
   <summary><h1>Sprint 2</h1></summary>
 
 # Sprint 2 Review
+![SPRINT 2](https://github.com/user-attachments/assets/3c9beb51-8700-4779-829f-a857dbe4216a)
 
 **Sprint Tarihleri:** 8 Temmuz - 21 Temmuz
 
@@ -151,10 +151,18 @@ Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet ö
 ## Sprint Retrospective
 - Uygulama tasarımında ilerlenmiştir.
 
+</details>
+
+<details>
+  <summary><h1>Sprint 3</h1></summary>
+
+# Sprint 3 Review
+
+![SPRINT 3](https://github.com/user-attachments/assets/1c01ec84-9f8d-488e-9e31-539aeb3e2604)
 
 
 
-
+</details>
 
 
 </details>
