@@ -6,7 +6,7 @@
 ----
 
 <details>
-  <summary><h1>Sprint 1</h1></summary>
+  <summary><h1>🏃🏻‍➡️ Sprint 1 🏃🏻‍♀️‍➡️</h1></summary>
 
   ![Sprint1](https://github.com/user-attachments/assets/dfccd73f-37ec-4dfe-a492-e1fde0bd88ae)
   
@@ -94,7 +94,7 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 </details>
 
 <details>
-  <summary><h1>Sprint 2</h1></summary>
+  <summary><h1>🏃🏻‍♀️‍➡️ Sprint 2 🏃🏻‍➡️</h1></summary>
 
 # Sprint 2 Review
 ![SPRINT 2](https://github.com/user-attachments/assets/3c9beb51-8700-4779-829f-a857dbe4216a)
@@ -149,6 +149,7 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 ![WhatsApp Bild 2024-07-21 um 14 41 50_e9683d3b](https://github.com/user-attachments/assets/b3d2044c-00fa-4fbd-9dee-c6a8bc27d0e3) ![WhatsApp Bild 2024-07-21 um 14 41 50_7c3a5b9f](https://github.com/user-attachments/assets/de7a9c09-4bb1-4401-8cc6-1a4edeba7e6d)
 
 - [Yardım merkezi sayfası kodları eklendi](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/commit/9b05a7be7af6eb5d1a48f9cef699d78b4a586598)
+
   ![image](https://github.com/user-attachments/assets/bcc4d326-c5c7-49e8-8eca-efbb40092f81)
 
 
@@ -161,23 +162,26 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 - Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.
 - Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task)
 
+Miro Ekran Görüntüsü
+
 ---
 ## Alınan Kararlar:
 - UI UX tarafında bir kişinin daha yardım etmesine karar verilmiştir.
 
 ## Sprint Retrospective
-- Uygulama tasarımında ilerlenmiştir.
+- Uygulama tasarımında community sayfası bitmiştir.
 - Giriş kısmı, dil seçenekleri ve yardım sayfasının kodları eklenmiştir.
 
 </details>
 
 <details>
-  <summary><h1>Sprint 3</h1></summary>
+  <summary><h1>🏃🏻‍➡️ Sprint 3 🏃🏻‍♀️‍➡️</h1></summary>
 
 # Sprint 3 Review
 
 ![SPRINT 3](https://github.com/user-attachments/assets/1c01ec84-9f8d-488e-9e31-539aeb3e2604)
 
+**Sprint Tarihleri:** 22 Temmuz - 2 Ağustos
 
 
 </details>
