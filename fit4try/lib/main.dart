@@ -7,11 +7,13 @@ import 'package:fit4try/bloc/community/community_bloc.dart';
 import 'package:fit4try/bloc/messages/messages_bloc.dart';
 import 'package:fit4try/bloc/user/user_bloc.dart';
 import 'package:fit4try/firebase_options.dart';
+import 'package:fit4try/generated/l10n.dart';
 import 'package:fit4try/screens/auth/sign_up/sign_up_screen.dart';
 import 'package:fit4try/screens/auth/styles/styles_screen.dart';
 import 'package:fit4try/screens/user/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +45,14 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
         home: AuthWrapper(),
       ),
     );
