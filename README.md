@@ -131,6 +131,11 @@ Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet ö
 - Kullanıcı verilerini Firebase Realtime Database'e kaydedecek şekilde ayarladık.
 - Kullanıcı profillerini Firebase üzerinden yönetilecek şekilde yapılandırdık.
 
+### 5. DM ve Yardım Merkezi Tasarımı
+
+- Uygulamanın DM kısmını tasarladık.
+- Yardım merkezi ve çıkış yap kısımlarını tasarladık.
+
 ## Sprint Notları
 
 - User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
@@ -138,6 +143,13 @@ Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet ö
 - Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 380 puanlık backlog bulunmaktadır. İlk sprintte tamamlanan 100 puandan sonra, bu sprintte 90 puan tamamlanması hedeflenmiştir.
 - Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.
 - Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task)
+
+---
+## Alınan Kararlar:
+- UI UX tarafında bir kişinin daha yardım etmesine karar verilmiştir.
+
+## Sprint Retrospective
+- Uygulama tasarımında ilerlenmiştir.
 
 
 
