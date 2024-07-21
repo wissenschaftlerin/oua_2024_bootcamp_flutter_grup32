@@ -137,9 +137,15 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 
 ![WhatsApp Bild 2024-07-21 um 14 41 49_a1554e05](https://github.com/user-attachments/assets/b1c94ec4-0da8-470a-8e17-a6fff57b2ed6) ![WhatsApp Bild 2024-07-21 um 14 41 49_e211ae3e](https://github.com/user-attachments/assets/8326be25-6a00-4eed-b9fa-64bbb3588662)
 
+- [Dil seçenekleri ayarları sayfası kodları eklendi](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/commit/01e492537148716f35c5e35f249911979f679517)
+![image](https://github.com/user-attachments/assets/a28d0e8d-335f-42a2-9e07-e63d377a2191)
+
+
 #### Yardım Merkezi
 
 ![WhatsApp Bild 2024-07-21 um 14 41 50_e9683d3b](https://github.com/user-attachments/assets/b3d2044c-00fa-4fbd-9dee-c6a8bc27d0e3) ![WhatsApp Bild 2024-07-21 um 14 41 50_7c3a5b9f](https://github.com/user-attachments/assets/de7a9c09-4bb1-4401-8cc6-1a4edeba7e6d)
+
+- [Yardım merkezi sayfası kodları eklendi](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/commit/9b05a7be7af6eb5d1a48f9cef699d78b4a586598)
 
 
 ## Sprint Notları
