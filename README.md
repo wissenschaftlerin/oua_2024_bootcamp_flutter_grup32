@@ -6,7 +6,7 @@
 ----
 
 <details>
-  <summary><h1>Sprint 1</h1></summary>
+  <summary><h1>🏃🏻‍➡️ Sprint 1 🏃🏻‍♀️‍➡️</h1></summary>
 
   ![Sprint1](https://github.com/user-attachments/assets/dfccd73f-37ec-4dfe-a492-e1fde0bd88ae)
   
@@ -94,7 +94,7 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 </details>
 
 <details>
-  <summary><h1>Sprint 2</h1></summary>
+  <summary><h1>🏃🏻‍♀️‍➡️ Sprint 2 🏃🏻‍➡️</h1></summary>
 
 # Sprint 2 Review
 ![SPRINT 2](https://github.com/user-attachments/assets/3c9beb51-8700-4779-829f-a857dbe4216a)
@@ -175,7 +175,7 @@ Miro Ekran Görüntüsü
 </details>
 
 <details>
-  <summary><h1>Sprint 3</h1></summary>
+  <summary><h1>🏃🏻‍➡️ Sprint 3 🏃🏻‍♀️‍➡️</h1></summary>
 
 # Sprint 3 Review
 
