@@ -168,6 +168,7 @@ Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet ö
 </details>
 
 
+----
 ## 🤖 Takım Üyeleri
 
 ### 🚀 [Yaren ÇOLPAN](https://www.linkedin.com/in/yarencolpan/) (Developer)
