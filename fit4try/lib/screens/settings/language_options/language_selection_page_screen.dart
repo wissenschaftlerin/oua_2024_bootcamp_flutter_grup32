@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class LanguageSelectionPage extends StatefulWidget {
   @override
   _LanguageSelectionPageState createState() => _LanguageSelectionPageState();
@@ -13,9 +12,9 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0), // AppBar'ın yüksekliğini ayarlayın
+        preferredSize: Size.fromHeight(70.0),
         child: AppBar(
-          centerTitle: true, // Başlığı ortalayın
+          centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.only(top: 24.0),
             child: Text('Dil Seçenekleri'),
@@ -33,7 +32,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(thickness: 1), // İnce çizgi
+            Divider(thickness: 1),
             ListTile(
               title: Text('English'),
               leading: Radio<String>(
@@ -61,9 +60,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
             Spacer(),
             Center(
               child: ElevatedButton(
-                onPressed: _selectedLanguage.isNotEmpty ? () {
-                  // Kaydet butonuna basılınca yapılacak işlemler
-                } : null,
+                onPressed: _selectedLanguage.isNotEmpty ? () {} : null,
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(vertical: 16),
@@ -78,8 +75,8 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _selectedLanguage == 'Türkçe'
-                      ? Color(0xFFC1AFCF) // Türkçe seçildiğinde buton rengi
-                      : Color(0xFF9F49DF), // İngilizce seçildiğinde buton rengi
+                      ? Color(0xFFC1AFCF)
+                      : Color(0xFF9F49DF),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -90,7 +87,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // İkonların hareket etmesini istersek bu satırı kaldırırız
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: Image.asset(
