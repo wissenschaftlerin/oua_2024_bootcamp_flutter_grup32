@@ -133,7 +133,8 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 ![WhatsApp Bild 2024-07-21 um 14 41 48_7a52af0c](https://github.com/user-attachments/assets/17fa99fe-5af8-496e-92ed-cb0a8e7836b5) ![WhatsApp Bild 2024-07-21 um 14 41 49_460635ca](https://github.com/user-attachments/assets/5344cf69-df15-4a31-b992-d3195e9bed54) ![WhatsApp Bild 2024-07-21 um 14 41 49_7164dd66](https://github.com/user-attachments/assets/86137036-5f09-464e-bcba-a2a22de450ff)
 
 - [Şifre ayarları sayfası kodları eklendi](https://github.com/wissenschaftlerin/oua_2024_bootcamp_flutter_grup32/commit/4590e91c4340db3a300c5d92cdac39b398b20884)
-![image](https://github.com/user-attachments/assets/b29ac913-8872-4ce2-af0b-bdadb7ca1e15)
+![WhatsApp Bild 2024-07-21 um 20 03 57_1674b6fa](https://github.com/user-attachments/assets/6d88e0a8-e084-4249-ae88-36682f3b72da)
+
 
 
 #### Dil Seçenekleri Ayarları 
