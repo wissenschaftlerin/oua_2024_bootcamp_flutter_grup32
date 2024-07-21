@@ -164,6 +164,8 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 - Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task)
 
 Miro Ekran Görüntüsü
+![image](https://github.com/user-attachments/assets/68f1562f-6835-4b93-b7b3-71ddba3f2e81)
+
 
 ---
 ## Alınan Kararlar:
