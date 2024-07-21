@@ -161,12 +161,14 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 - Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.
 - Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task)
 
+Miro Ekran Görüntüsü
+
 ---
 ## Alınan Kararlar:
 - UI UX tarafında bir kişinin daha yardım etmesine karar verilmiştir.
 
 ## Sprint Retrospective
-- Uygulama tasarımında ilerlenmiştir.
+- Uygulama tasarımında community sayfası bitmiştir.
 - Giriş kısmı, dil seçenekleri ve yardım sayfasının kodları eklenmiştir.
 
 </details>
@@ -178,6 +180,7 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 
 ![SPRINT 3](https://github.com/user-attachments/assets/1c01ec84-9f8d-488e-9e31-539aeb3e2604)
 
+**Sprint Tarihleri:** 22 Temmuz - 2 Ağustos
 
 
 </details>
