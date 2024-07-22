@@ -111,6 +111,7 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 İkinci toplantımızı 15 Temmuz'da gerçekleştirdik. Bu toplantıda sprint ilerleyişini değerlendirdik ve gerekli düzenlemeleri yaptık.
 
 ### 3. Uygulama Geliştirme
+![image](https://github.com/user-attachments/assets/331f17e1-6cba-4e51-bc20-e2e8f4e4ba60)
 
 - Kullanıcı profili sayfasını tamamladık.
 - Stil analizi ekranlarını ve algoritmalarını geliştirdik.
@@ -122,9 +123,15 @@ Bu sprintte, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafe
 - Kullanıcı profillerini Firebase üzerinden yönetilecek şekilde yapılandırdık.
 
 ### 5. DM ve Yardım Merkezi Tasarımı
+![image](https://github.com/user-attachments/assets/48b09eda-5c05-4a9e-8f2d-c954ec382f47)
 
 - Uygulamanın DM kısmını tasarladık.
 - Yardım merkezi ve çıkış yap kısımlarını tasarladık.
+
+## Şifre & Dil & Yardım Merkezi Seçenekleri Ayarları Kodlanması
+![image](https://github.com/user-attachments/assets/d965f619-b589-4ea0-a69c-cb8e924224e1)
+
+  
 
 ### Screenshotlar
 
@@ -180,10 +187,10 @@ Daily Scrum toplantılarının zamansal sebeplerden ötürü whatsapp ve slack �
 Alınan kararlar: Bilgilendirmeler anlık whatsapp grubu üzerinden toplantılar meet veya slack üzerinden gerçekleştirilecektir.
 UI UX tasarımların kodlamaları yapılmıştır.
 
-![image](https://github.com/user-attachments/assets/48b09eda-5c05-4a9e-8f2d-c954ec382f47)
-![image](https://github.com/user-attachments/assets/331f17e1-6cba-4e51-bc20-e2e8f4e4ba60)
+
+
 ![image](https://github.com/user-attachments/assets/08a95d01-d200-456c-9069-dae8963e3aaf)
-![image](https://github.com/user-attachments/assets/d965f619-b589-4ea0-a69c-cb8e924224e1)
+
 
 
 </details>
