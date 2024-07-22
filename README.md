@@ -179,6 +179,11 @@ Daily Scrum toplantılarının zamansal sebeplerden ötürü whatsapp ve slack �
 ## Sprint Review
 Alınan kararlar: Bilgilendirmeler anlık whatsapp grubu üzerinden toplantılar meet veya slack üzerinden gerçekleştirilecektir.
 UI UX tasarımların kodlamaları yapılmıştır.
+![image](https://github.com/user-attachments/assets/48b09eda-5c05-4a9e-8f2d-c954ec382f47)
+![image](https://github.com/user-attachments/assets/331f17e1-6cba-4e51-bc20-e2e8f4e4ba60)
+![image](https://github.com/user-attachments/assets/08a95d01-d200-456c-9069-dae8963e3aaf)
+![image](https://github.com/user-attachments/assets/d965f619-b589-4ea0-a69c-cb8e924224e1)
+
 
 </details>
 
