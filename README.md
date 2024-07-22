@@ -169,8 +169,8 @@ Miro Ekran Görüntüsü
 
 
 ---
-## Alınan Kararlar:
-- UI UX tarafında bir kişinin daha yardım etmesine karar verilmiştir.
+
+- **Daily Scrum**: Daily Scrum toplantılarının zamansal sebeplerden ötürü whatsapp ve slack üzerinden yapılması kararlaştırılmıştır.
 
 ## Sprint Retrospective
 - Uygulama tasarımında community sayfası bitmiştir.
