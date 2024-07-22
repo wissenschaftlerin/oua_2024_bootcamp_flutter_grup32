@@ -177,7 +177,8 @@ Daily Scrum toplantılarının zamansal sebeplerden ötürü whatsapp ve slack �
 - Giriş kısmı, dil seçenekleri ve yardım sayfasının kodları eklenmiştir.
 
 ## Sprint Review
-Alınan kararlar: Bilgilenndirmeler anlık whatsapp grubu üzerinden toplantılar meet veya slack üzerinden gerçekleştirilecektir.
+Alınan kararlar: Bilgilendirmeler anlık whatsapp grubu üzerinden toplantılar meet veya slack üzerinden gerçekleştirilecektir.
+UI UX tasarımların kodlamaları yapılmıştır.
 
 </details>
 
