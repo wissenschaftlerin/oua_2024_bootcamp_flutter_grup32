@@ -167,14 +167,17 @@ Miro Ekran Görüntüsü
 
 ![image](https://github.com/user-attachments/assets/68f1562f-6835-4b93-b7b3-71ddba3f2e81)
 
-
 ---
 
-- **Daily Scrum**: Daily Scrum toplantılarının zamansal sebeplerden ötürü whatsapp ve slack üzerinden yapılması kararlaştırılmıştır.
+## Daily Scrum 
+Daily Scrum toplantılarının zamansal sebeplerden ötürü whatsapp ve slack üzerinden yapılması kararlaştırılmıştır.
 
 ## Sprint Retrospective
 - Uygulama tasarımında community sayfası bitmiştir.
 - Giriş kısmı, dil seçenekleri ve yardım sayfasının kodları eklenmiştir.
+
+## Sprint Review
+Alınan kararlar: Bilgilenndirmeler anlık whatsapp grubu üzerinden toplantılar meet veya slack üzerinden gerçekleştirilecektir.
 
 </details>
 
