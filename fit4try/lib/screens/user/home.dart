@@ -16,9 +16,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocProvider(
-        create: (context) => UserBloc()
-          ..add(FetchUserData(
-              'user-id')), // Replace 'user-id' with actual user ID
+        create: (context) => UserBloc()..add(FetchUserData('user-id')),
         child: MyHomePage(),
       ),
     );

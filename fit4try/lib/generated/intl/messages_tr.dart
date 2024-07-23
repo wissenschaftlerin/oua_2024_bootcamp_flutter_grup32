@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en_TR locale. All the
+// This is a library that provides messages for a tr locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,8 +18,14 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en_TR';
+  String get localeName => 'tr';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "english": MessageLookupByLibrary.simpleMessage("İngilizce"),
+        "profile_page_content":
+            MessageLookupByLibrary.simpleMessage("Profil Sayfası İçeriği"),
+        "title": MessageLookupByLibrary.simpleMessage("Profil"),
+        "turkish": MessageLookupByLibrary.simpleMessage("Türkçe")
+      };
 }
