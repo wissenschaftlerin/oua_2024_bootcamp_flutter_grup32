@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fit4try/screens/user/notifications_screen.dart';
-// Şifre ayarları sayfasının görüntüsü eklendi
+//bildirimler sayfası görüntüsü eklendi
 
 void main() {
   runApp(MyApp());
