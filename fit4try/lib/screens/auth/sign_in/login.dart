@@ -1,6 +1,6 @@
+// login ekranının görüntüsü
 
-// login ekranının görüntüsü 
-
+import 'package:fit4try/screens/auth/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 // pubspec.yaml dosyasına eklenenler
 import 'package:google_fonts/google_fonts.dart';
@@ -29,11 +29,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   selectedUserType == 'Bireysel'
                       ? const SignInForm(
-                    formType: 'B',
-                  )
+                          formType: 'B',
+                        )
                       : const SignInForm(
-                    formType: 'S',
-                  ),
+                          formType: 'S',
+                        ),
                 ],
               ),
             ),
@@ -85,7 +85,6 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 }
-
 
 class SignInForm extends StatefulWidget {
   final String formType;
@@ -193,10 +192,10 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                   child: rememberMe
                       ? const Icon(
-                    Icons.check,
-                    size: 18.0,
-                    color: Colors.white,
-                  )
+                          Icons.check,
+                          size: 18.0,
+                          color: Colors.white,
+                        )
                       : null,
                 ),
                 const SizedBox(width: 8),
@@ -208,10 +207,10 @@ class _SignInFormState extends State<SignInForm> {
           ElevatedButton(
             onPressed: isFormValid
                 ? () {
-              if (formKey.currentState!.validate()) {
-                // Perform login action
-              }
-            }
+                    if (formKey.currentState!.validate()) {
+                      // Perform login action
+                    }
+                  }
                 : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: isFormValid
@@ -264,7 +263,10 @@ class _SignInFormState extends State<SignInForm> {
                     ),
                     TextButton(
                       onPressed: () {
-                        // Navigate to registration screen
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUpScreen()));
                       },
                       child: Text(
                         'Kayıt Ol',

@@ -6,15 +6,14 @@ import 'package:fit4try/bloc/auth/auth_state.dart';
 import 'package:fit4try/bloc/community/community_bloc.dart';
 import 'package:fit4try/bloc/messages/messages_bloc.dart';
 import 'package:fit4try/bloc/user/user_bloc.dart';
-import 'package:fit4try/bloc/localization/localization_bloc.dart';
 import 'package:fit4try/firebase_options.dart';
+import 'package:fit4try/screens/auth/intro_screen.dart';
+import 'package:fit4try/screens/auth/sign_in/login.dart';
 import 'package:fit4try/screens/auth/sign_up/sign_up_screen.dart';
 import 'package:fit4try/screens/auth/styles/styles_screen.dart';
 import 'package:fit4try/screens/user/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,40 +30,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<CommunityBloc>(
-          create: (context) => CommunityBloc(),
-        ),
-        BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc()..add(CheckAuthStatus()),
-        ),
-        BlocProvider<MessagesBloc>(
-          create: (context) => MessagesBloc(),
-        ),
-        BlocProvider<UserBloc>(
-          create: (context) => UserBloc(),
-        ),
-        BlocProvider<LocalizationBloc>(
-          create: (context) => LocalizationBloc(),
-        ),
-      ],
-      child: BlocBuilder<LocalizationBloc, Locale>(
-        builder: (context, locale) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: S.delegate.supportedLocales,
-            locale: locale,
-            home: AuthWrapper(),
-          );
-        },
-      ),
-    );
+        providers: [
+          BlocProvider<CommunityBloc>(
+            create: (context) => CommunityBloc(),
+          ),
+          BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc()..add(CheckAuthStatus()),
+          ),
+          BlocProvider<MessagesBloc>(
+            create: (context) => MessagesBloc(),
+          ),
+          BlocProvider<UserBloc>(
+            create: (context) => UserBloc(),
+          ),
+        ],
+        child: MaterialApp(
+          home: AuthWrapper(),
+          debugShowCheckedModeBanner: false,
+        ));
   }
 }
 
@@ -79,10 +62,12 @@ class AuthWrapper extends StatelessWidget {
           if (state.newUser || state.newStylest) {
             return StylesScreen();
           } else {
-            return Home();
+            return SignInScreen();
           }
         } else if (state is Unauthenticated) {
-          return Home();
+          return MyHomePage(
+            title: "test",
+          );
         } else {
           return Scaffold(
             body: Center(child: Text('Something went wrong!')),

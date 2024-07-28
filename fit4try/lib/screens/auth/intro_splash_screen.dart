@@ -1,8 +1,8 @@
-//burada intro için oluşturduğum 5 sayfanın görüntüsü var 
+//burada intro için oluşturduğum 5 sayfanın görüntüsü var
 
 import 'package:fit4try/constants/fonts.dart';
+import 'package:fit4try/screens/auth/sign_in/login.dart';
 import 'package:flutter/material.dart';
-
 
 class Screen1 extends StatelessWidget {
   const Screen1({super.key});
@@ -39,14 +39,15 @@ class Screen1 extends StatelessWidget {
                     child: Text(
                       "Sanal Kıyafet Deneme",
                       style: TextStyle(
-                        color:  AppColors.backgroundColor2,
+                        color: AppColors.backgroundColor2,
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 20, right: 20),
                     child: Text(
                       "Kullanıcılar, stilistlerin önerdiği kıyafetleri veya kendi seçtikleri kıyafetleri mobil uygulama üzerinden sanal olarak deneyebilirler.",
                       style: TextStyle(
@@ -109,7 +110,8 @@ class Screen2 extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 20, right: 20),
                     child: Text(
                       "Kullanıcılar, kendi kıyafetlerini çizerek veya tasarlayarak dolabına ekleyebilir hatta tasarımlarını paylaşabilir.",
                       style: TextStyle(
@@ -173,7 +175,8 @@ class Screen3 extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 20, right: 20),
                     child: Text(
                       "Kullanıcılar, kendi kıyafetlerini çizerek veya tasarlayarak dolabına ekleyebilir hatta tasarımlarını paylaşabilirsin",
                       style: TextStyle(
@@ -236,7 +239,8 @@ class Screen4 extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 20, right: 20),
                     child: Text(
                       "Kullanıcılar, tasarımlarını toplulukla paylaşabilir, beğeni ve geri bildirim alabilirler.",
                       style: TextStyle(
@@ -256,7 +260,6 @@ class Screen4 extends StatelessWidget {
     );
   }
 }
-
 
 class Screen5 extends StatelessWidget {
   const Screen5({super.key});
@@ -300,7 +303,8 @@ class Screen5 extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 20, right: 20),
                     child: Text(
                       "En çok kıyafet tarzı sunan kullanıcıların yanısıra uygulama içerisinde sende stilist olabilir hatta çeşitli ödüller kazanabilirsin.",
                       style: TextStyle(
@@ -318,15 +322,18 @@ class Screen5 extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const NextScreen()), // Replace NextScreen with your next screen's class
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  SignInScreen()), // Replace NextScreen with your next screen's class
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        
                         iconColor: Colors.white, // button color
-                        backgroundColor: AppColors.backgroundColor2, // text color
-                        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                        
+                        backgroundColor:
+                            AppColors.backgroundColor2, // text color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 15),
+
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -347,17 +354,6 @@ class Screen5 extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class NextScreen extends StatelessWidget {
-  const NextScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      // Your NextScreen implementation
     );
   }
 }

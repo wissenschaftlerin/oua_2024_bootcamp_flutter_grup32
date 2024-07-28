@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:fit4try/bloc/auth/auth_bloc.dart';
+import 'package:fit4try/constants/fonts.dart';
+import 'package:fit4try/widgets/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpUser extends StatefulWidget {
   const SignUpUser({Key? key}) : super(key: key);
@@ -17,16 +21,14 @@ class _SignUpUserState extends State<SignUpUser> {
   bool _isPasswordVisible = false;
   bool _isNextButtonEnabled = false;
 
-  // StreamController to notify changes
   late StreamController<bool> _buttonStateController;
 
-  // Map to store colors for each step
   Map<int, Color> _stepColors = {
-    0: Colors.red.shade200,
-    1: Colors.orange.shade300,
-    2: Colors.yellow.shade400,
-    3: Colors.green.shade500,
-    4: Colors.blue.shade600,
+    0: AppColors.primaryColor1,
+    1: AppColors.primaryColor2,
+    2: AppColors.primaryColor3,
+    3: AppColors.primaryColor4,
+    4: AppColors.primaryColor5,
   };
 
   @override
@@ -62,6 +64,13 @@ class _SignUpUserState extends State<SignUpUser> {
 
   void _nextPage() {
     if (_currentStep < 4) {
+      if (_currentStep == 0) {
+        // Perform the user info submission before going to the next page
+        submitUserInfo(context);
+      } else if (_currentStep == 1) {
+        // Send verification code
+        sendVerificationCode();
+      }
       setState(() {
         _currentStep++;
       });
@@ -88,6 +97,32 @@ class _SignUpUserState extends State<SignUpUser> {
     return _controllers.every((controller) => controller.text.isNotEmpty);
   }
 
+  void submitUserInfo(BuildContext context) {
+    print(_controllers[0].text);
+    print(_controllers[1].text);
+    print(_controllers[2].text);
+    print(_controllers[3].text);
+    print(_controllers[4].text);
+    final authBloc = context.read<AuthBloc>;
+
+    print("User information submitted.");
+  }
+
+  void sendVerificationCode() {
+    // E-posta doğrulama kodu gönderme kodu buraya gelecek.
+    print("Verification code sent.");
+  }
+
+  Future<void> pickImageFromGallery() async {
+    // Galeriden resim seçme kodu buraya gelecek.
+    print("Image picked from gallery.");
+  }
+
+  Future<void> takePhoto() async {
+    // Kameradan fotoğraf çekme kodu buraya gelecek.
+    print("Photo taken.");
+  }
+
   Widget _buildStepContent(int step) {
     switch (step) {
       case 0:
@@ -97,14 +132,13 @@ class _SignUpUserState extends State<SignUpUser> {
           togglePasswordVisibility: _togglePasswordVisibility,
         );
       case 1:
-        return PlaceholderStep(
-          color: _stepColors[1]!,
-          text: 'Step 2', // Replace with actual step content
+        return VerificationStep(
+          controllers: _controllers,
         );
       case 2:
-        return PlaceholderStep(
-          color: _stepColors[2]!,
-          text: 'Step 3', // Replace with actual step content
+        return PhotoUploadStep(
+          pickImageFromGallery: pickImageFromGallery,
+          takePhoto: takePhoto,
         );
       case 3:
         return PlaceholderStep(
@@ -112,10 +146,7 @@ class _SignUpUserState extends State<SignUpUser> {
           text: 'Step 4', // Replace with actual step content
         );
       case 4:
-        return PlaceholderStep(
-          color: _stepColors[4]!,
-          text: 'Step 5', // Replace with actual step content
-        );
+        return WelcomeStep();
       default:
         return Container();
     }
@@ -177,19 +208,23 @@ class _SignUpUserState extends State<SignUpUser> {
                   stream: _buttonStateController.stream,
                   initialData: _isNextButtonEnabled,
                   builder: (context, snapshot) {
-                    return ElevatedButton(
-                      onPressed: snapshot.data ?? false ? _nextPage : null,
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return Colors.blue;
-                        }),
-                      ),
-                      child: Text('İleri'),
-                    );
+                    return MyButton(
+                        text: "İleri",
+                        borderRadius: BorderRadius.circular(16),
+                        buttonColor: Colors.black,
+                        buttonTextColor: AppColors.backgroundColor1,
+                        buttonTextSize: 20,
+                        buttonTextWeight: FontWeight.normal,
+                        onPressed: snapshot.data ?? false ? _nextPage : () {},
+                        buttonWidth: ButtonWidth.xLarge);
+                    // ElevatedButton(
+                    //   onPressed: snapshot.data ?? false ? _nextPage : null,
+                    //   style: ButtonStyle(
+                    //     backgroundColor:
+
+                    //   ),
+                    //   child: Text('İleri'),
+                    // );
                   },
                 ),
               ],
@@ -294,6 +329,115 @@ class UserInfoStep extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class VerificationStep extends StatelessWidget {
+  final List<TextEditingController> controllers;
+
+  VerificationStep({required this.controllers});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'E-posta Doğrulama 📧',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Lütfen e-posta adresinize gönderilen doğrulama kodunu girin.',
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: controllers[2],
+              decoration: InputDecoration(
+                labelText: 'Doğrulama Kodu',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PhotoUploadStep extends StatelessWidget {
+  final VoidCallback pickImageFromGallery;
+  final VoidCallback takePhoto;
+
+  PhotoUploadStep({
+    required this.pickImageFromGallery,
+    required this.takePhoto,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Fotoğraf Yükle 📷',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: pickImageFromGallery,
+              child: Text('Galeriden Seç'),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: takePhoto,
+              child: Text('Kamera ile Çek'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WelcomeStep extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Hoş Geldiniz 🎉',
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 16),
+          // Konfeti efekti buraya eklenecek.
+          Text(
+            'Tebrikler! Kaydınız başarıyla tamamlandı.',
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
