@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/constants/style.dart';
-import 'package:fit4try/screens/settings/profile_settings/password_settings/change_password_page_screen.dart';
 import 'package:fit4try/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,17 +15,40 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  String _userName = '';
+  int _followersCount = 0;
+  int _followingCount = 0;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _getUserData();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  Future<void> _getUserData() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(user.uid).get();
+
+      if (userDoc.exists) {
+        setState(() {
+          _userName = userDoc['displayName'] ?? 'Anonim Kullanıcı';
+          _followersCount = userDoc['followers'] ?? 0;
+          _followingCount = userDoc['following'] ?? 0;
+        });
+      }
+    }
   }
 
   @override
@@ -71,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               ),
               Container(
                 child: Text(
-                  "Ege Yıldırım",
+                  _userName,
                   style:
                       fontStyle(23, AppColors.secondaryColor2, FontWeight.bold),
                 ),
@@ -85,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   Column(
                     children: [
                       Text(
-                        "210",
+                        _followersCount.toString(),
                         style: fontStyle(
                             18, AppColors.secondaryColor2, FontWeight.bold),
                       ),
@@ -99,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   Column(
                     children: [
                       Text(
-                        "150",
+                        _followingCount.toString(),
                         style: fontStyle(
                             18, AppColors.secondaryColor2, FontWeight.bold),
                       ),
@@ -188,10 +212,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                 unselectedLabelColor: AppColors.secondaryColor1,
                 tabs: [
                   Tab(
-                    text: "Stillerim (5)",
+                    text: "Stillerim (0)",
                   ),
                   Tab(
-                    text: "Favorilerim (10)",
+                    text: "Favorilerim (0)",
                   ),
                 ],
               ),

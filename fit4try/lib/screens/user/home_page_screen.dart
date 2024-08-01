@@ -1,146 +1,114 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fit4try/constants/fonts.dart';
+import 'package:fit4try/models/discover_model.dart';
+import 'package:fit4try/screens/user/messages_screen.dart';
+import 'package:fit4try/screens/user/guest_user_screen.dart';
+import 'package:fit4try/screens/user/message_screen.dart';
+import 'package:fit4try/screens/user/notifications_screen.dart';
+import 'package:fit4try/widgets/buttons.dart';
+import 'package:fit4try/widgets/flash_message.dart';
+import 'package:fit4try/widgets/home_post.dart';
 import 'package:flutter/material.dart';
-//anasayfanın görüntüsü 
+import 'package:image_picker/image_picker.dart';
+//anasayfanın görüntüsü
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-  bool isFavorited = false;
-  final List<Widget> _children = [
-    HomeTab(),
-    SearchTab(),
-    ProfileTab(),
-  ];
-
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+class HomeTab extends StatelessWidget {
+  String getGreeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Günaydın';
+    } else if (hour < 18) {
+      return 'İyi günler';
+    } else {
+      return 'İyi akşamlar';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // İkonların hareket etmesini istersek bu satırı kaldırırız
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icon/home2.png',
-              width: 36,
-              height: 36,
+    return Container(
+      color: AppColors.backgroundColor1,
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+                top: 60), // Ekranın üst kısmında 30 birim boşluk bırakır
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 18.0), // Kenarlardan 20 birim uzaklaştırır
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Selam ',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Ege',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.purple, // Mor renk
+                          ),
+                        ),
+                        TextSpan(
+                          text: ',\nBugün harika gözüküyorsun!',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15),
+                  SearchBar(),
+                ],
+              ),
             ),
-            label: '',
           ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icon/community.png',
-              width: 36,
-              height: 36,
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('posts')
+                  .orderBy('createdAt', descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return Center(child: Text('No posts available'));
+                }
+
+                final posts = snapshot.data!.docs.map((doc) {
+                  return DiscoverPost.fromMap(
+                      doc.data() as Map<String, dynamic>);
+                }).toList();
+
+                return ListView.builder(
+                  padding: EdgeInsets.zero, // Extra padding kaldırılır
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) {
+                    return PostWidget(post: posts[index]);
+                  },
+                );
+              },
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icon/picture.png',
-              width: 36,
-              height: 36,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icon/aı.png',
-              width: 36,
-              height: 36,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: CircleAvatar(
-              radius: 12,
-              backgroundImage: AssetImage('assets/icon/foto.png'),
-            ),
-            label: '',
           ),
         ],
       ),
-    );
-  }
-}
-
-class HomeTab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(top: 60), // Ekranın üst kısmında 30 birim boşluk bırakır
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0), // Kenarlardan 20 birim uzaklaştırır
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Selam ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Ege',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple, // Mor renk
-                        ),
-                      ),
-                      TextSpan(
-                        text: ',\nBugün harika gözüküyorsun!',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 15),
-                SearchBar(),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.zero, // Extra padding kaldırılır
-            children: [
-              PostWidget(
-                imageUrl: 'assets/images/anasayfafoto1.png',
-                username: 'ege.yildirim',
-                userImage: 'assets/icon/foto.png',
-                description: '',
-                isFavorited: true,
-              ),
-              PostWidget(
-                imageUrl: 'assets/images/anasayfafoto2.png',
-                username: 'ethetheword',
-                userImage: 'assets/images/aramafoto6.png',
-                description: '',
-                isFavorited: false,
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
@@ -199,15 +167,20 @@ class SearchBar extends StatelessWidget {
                 icon: const ImageIcon(
                   AssetImage('assets/icon/bildirim.png'),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => NotificationScreen()));
+                },
               ),
               SizedBox(width: 1), // Reduced space between icons
               IconButton(
                 icon: const ImageIcon(
                   AssetImage('assets/icon/send.png'),
                 ),
-
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MessagesScreen()));
+                },
               ),
             ],
           ),
@@ -217,53 +190,50 @@ class SearchBar extends StatelessWidget {
   }
 }
 
-
 class SearchBottomSheet extends StatefulWidget {
   @override
   _SearchBottomSheetState createState() => _SearchBottomSheetState();
 }
 
 class _SearchBottomSheetState extends State<SearchBottomSheet> {
-  final List<Map<String, String>> suggestions = [
-    {
-      'name': 'Yunus Emre',
-      'username': 'yunusemre',
-      'image': 'assets/images/aramafoto1.png'
-    },
-    {
-      'name': 'Feyza',
-      'username': 'feyza',
-      'image': 'assets/images/aramafoto2.png'
-    },
-    {
-      'name': 'Yasin Kaan',
-      'username': 'yasinkaan',
-      'image': 'assets/images/aramafoto3.png'
-    },
-    {
-      'name': 'Zehra Nur',
-      'username': 'zehranur',
-      'image': 'assets/images/aramafoto4.png'
-    },
-    {
-      'name': 'Yaren',
-      'username': 'yaren',
-      'image': 'assets/images/aramafoto5.png'
-    },
-    {
-      'name': 'Ester',
-      'username': 'ester',
-      'image': 'assets/images/aramafoto6.png'
-    },
-  ];
-
+  List<Map<String, dynamic>> allUsers = [];
+  List<Map<String, dynamic>> displayedUsers = [];
   String query = '';
 
   @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  void fetchUsers() async {
+    final snapshot = await FirebaseFirestore.instance.collection('users').get();
+    final userDocs = snapshot.docs;
+
+    setState(() {
+      allUsers = userDocs.map((doc) {
+        return {
+          'uid': doc.id, // Store the uid of the user
+          'name': doc['displayName'] ?? 'No Name',
+          'username': doc['username'] ?? 'No Username',
+          'image': doc['photoUrl'] ?? 'assets/images/placeholder_profile.jpg',
+        };
+      }).toList();
+      displayedUsers =
+          allUsers.take(9).toList(); // Initially show the first 9 users
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final filteredSuggestions = suggestions.where((suggestion) {
-      return suggestion['name']!.toLowerCase().contains(query.toLowerCase());
-    }).toList();
+    // Filter based on query and limit to 9 displayed users
+    displayedUsers = allUsers
+        .where((user) {
+          return user['name']!.toLowerCase().contains(query.toLowerCase());
+        })
+        .toList()
+        .take(9)
+        .toList();
 
     return Container(
       padding: EdgeInsets.all(16),
@@ -305,22 +275,29 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
               ),
-              itemCount: filteredSuggestions.length,
+              itemCount: displayedUsers.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigate to user profile screen and pass uid
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GuestUserProfileScreen(
+                            uid: displayedUsers[index]['uid']),
+                      ),
+                    );
                   },
                   child: Column(
                     children: [
                       CircleAvatar(
                         radius: 30,
                         backgroundImage:
-                        AssetImage(filteredSuggestions[index]['image']!),
+                            NetworkImage(displayedUsers[index]['image']!),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        filteredSuggestions[index]['name']!,
+                        displayedUsers[index]['name']!,
                         style: TextStyle(fontSize: 15),
                       ),
                     ],
@@ -335,128 +312,45 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
   }
 }
 
-class PostWidget extends StatefulWidget {
-  final String imageUrl;
-  final String username;
-  final String userImage;
-  final String description;
-  final bool isFavorited;
-
-  PostWidget({
-    required this.imageUrl,
-    required this.username,
-    required this.userImage,
-    required this.description,
-    required this.isFavorited,
-  });
-
-  @override
-  _PostWidgetState createState() => _PostWidgetState();
-}
-
-class _PostWidgetState extends State<PostWidget> {
-  bool isFavorited = false;
-
-  @override
-  void initState() {
-    super.initState();
-    isFavorited = widget.isFavorited;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: AssetImage(widget.userImage),
-            ),
-            title: Text(widget.username),
-          ),
-          Image.asset(widget.imageUrl),
-          if (widget.description.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(widget.description),
-            ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: ImageIcon(
-                    AssetImage(isFavorited
-                        ? 'assets/icon/like.png'
-                        : 'assets/icon/like2.png'),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isFavorited = !isFavorited;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: const ImageIcon(
-                    AssetImage('assets/icon/send.png'),
-                  ),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const ImageIcon(
-                    AssetImage('assets/icon/yıldız.png'),
-                  ),
-                  onPressed: () {},
-                ),
-                Expanded(child: Container()), // This takes up the remaining space
-                IconButton(
-                    icon: const ImageIcon(
-                      AssetImage('assets/icon/plus.png'),
-                    ),
-                    onPressed: () {}
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class NewPostScreen extends StatefulWidget {
   @override
   _NewPostScreenState createState() => _NewPostScreenState();
 }
 
 class _NewPostScreenState extends State<NewPostScreen> {
-  String selectedImage = 'assets/images/anasayfafoto2.png';
+  List<XFile>? selectedImages = [];
+  final ImagePicker _picker = ImagePicker();
   bool showGalleryImages = true;
 
-  final List<String> galleryImages = [
-    'assets/images/ornek.png',
-    'assets/images/ornek2.png',
-    'assets/images/ornek3.png',
-    'assets/images/ornek4.png',
-    'assets/images/ornek5.png',
-    'assets/images/ornek6.png',
-  ];
+  void _selectImages() async {
+    final List<XFile>? images = await _picker.pickMultiImage();
+    if (images != null) {
+      setState(() {
+        selectedImages = images;
+      });
+    }
+  }
 
-  final List<String> photosImages = [
-    'assets/images/ornek6.png',
-    'assets/images/ornek5.png',
-    'assets/images/ornek7.png',
-    'assets/images/ornek8.png',
-    'assets/images/ornek2.png',
-    'assets/images/ornek4.png',
+  Future<List<String>> _uploadImagesToFirebase() async {
+    List<String> downloadUrls = [];
 
+    for (XFile image in selectedImages!) {
+      File file = File(image.path);
+      try {
+        // Upload the image to Firebase Storage
+        String fileName =
+            DateTime.now().millisecondsSinceEpoch.toString() + '_' + image.name;
+        Reference ref = FirebaseStorage.instance.ref().child('posts/$fileName');
+        await ref.putFile(file);
+        // Get the download URL
+        String downloadUrl = await ref.getDownloadURL();
+        downloadUrls.add(downloadUrl);
+      } catch (e) {
+        print('Error uploading image: $e');
+      }
+    }
 
-  ];
-
-  void _selectImage(String image) {
-    setState(() {
-      selectedImage = image;
-    });
+    return downloadUrls;
   }
 
   @override
@@ -466,99 +360,84 @@ class _NewPostScreenState extends State<NewPostScreen> {
         title: Text('Yeni Gönderi'),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SharePostScreen(imageUrl: selectedImage),
-                ),
-              );
+            onPressed: () async {
+              if (selectedImages!.isNotEmpty) {
+                List<String> imageUrls = await _uploadImagesToFirebase();
+                // Pass the imageUrls to SharePostScreen or handle them as needed
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SharePostScreen(imageUrls: imageUrls),
+                  ),
+                );
+              }
             },
-            child: Text('İlerle', style: TextStyle(color: Colors.purple, fontSize: 20.0,)),
+            child: Text('İlerle',
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontSize: 20.0,
+                )),
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Image.asset(
-            selectedImage,
-            width: 400.0, // İstediğiniz genişliği buraya yazın
-            height: 500.0, // İstediğiniz yüksekliği buraya yazın
-            fit: BoxFit.cover, // Fotoğrafın nasıl ölçekleneceğini buradan seçebilirsiniz
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        showGalleryImages = true;
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: showGalleryImages ? Colors.black : Colors.grey, // Renk seçimi
-                    ),
-                    child: Text(
-                      'Galeri',
-                      style: TextStyle(fontSize: 20.0), // Yazı boyutunu artırın
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        showGalleryImages = false;
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: !showGalleryImages ? Colors.black : Colors.grey, // Renk seçimi
-                    ),
-                    child: Text(
-                      'Dolaptan',
-                      style: TextStyle(fontSize: 20.0), // Yazı boyutunu artırın
-                    ),
-                  ),
-                ],
+      body: Container(
+        height: selectedImages!.isNotEmpty ? double.infinity : null,
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: selectedImages!.isNotEmpty
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Show selected image
+            if (selectedImages!.isNotEmpty)
+              Image.file(
+                File(selectedImages![0].path),
+                width: 400.0,
+                height: 500.0,
+                fit: BoxFit.cover,
               ),
-              // Divider'ı yazılara daha yakın ve daha kısa yapmak
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2.0), // Yatayda boşluk ekleyin
-                child: Divider(
-                  color: Colors.grey,
-                  thickness: 1.0,
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
-              itemCount: showGalleryImages ? galleryImages.length : photosImages.length,
-              itemBuilder: (context, index) {
-                String imagePath = showGalleryImages ? galleryImages[index] : photosImages[index];
-                return GestureDetector(
-                  onTap: () {
-                    _selectImage(imagePath);
-                  },
-                  child: Image.asset(imagePath),
-                );
-              },
+            SizedBox(height: 10),
+            Center(
+                child: MyButton(
+                    text: "Galeriye Git",
+                    buttonColor: AppColors.primaryColor5,
+                    buttonTextColor: Colors.white,
+                    buttonTextSize: 20,
+                    borderRadius: BorderRadius.circular(16),
+                    buttonTextWeight: FontWeight.normal,
+                    onPressed: _selectImages,
+                    buttonWidth: ButtonWidth.large)),
+            SizedBox(
+              height: 10,
             ),
-          ),
-        ],
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                ),
+                itemCount: selectedImages!.length,
+                itemBuilder: (context, index) {
+                  return Image.file(
+                    File(selectedImages![index].path),
+                    fit: BoxFit.cover,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-class SharePostScreen extends StatefulWidget {
-  final String imageUrl;
 
-  SharePostScreen({required this.imageUrl});
+class SharePostScreen extends StatefulWidget {
+  final List<String> imageUrls;
+
+  SharePostScreen({required this.imageUrls});
 
   @override
   _SharePostScreenState createState() => _SharePostScreenState();
@@ -566,11 +445,15 @@ class SharePostScreen extends StatefulWidget {
 
 class _SharePostScreenState extends State<SharePostScreen> {
   List<String> selectedStylists = [];
-  bool showIcon = false; // Ikonun gösterilip gösterilmeyeceğini belirleyen değişken
+  bool showIcon =
+      false; // Ikonun gösterilip gösterilmeyeceğini belirleyen değişken
+  List<String> tags =
+      []; // Seçilen stilistlerin usernamesini kaydedeceğimiz liste
 
   void _addStylist(String stylist) {
     setState(() {
       selectedStylists.add(stylist);
+      tags.add(stylist); // Stilist eklenirken tags listesine de ekle
       showIcon = true; // Stilist eklendiğinde ikonu göster
     });
   }
@@ -584,8 +467,9 @@ class _SharePostScreenState extends State<SharePostScreen> {
       ),
       body: Column(
         children: [
-          Image.asset(
-            widget.imageUrl,
+          // Seçilen ilk resmi göster
+          Image.network(
+            widget.imageUrls[0],
             width: 400.0, // İstediğiniz genişliği buraya yazın
             height: 500.0, // İstediğiniz yüksekliği buraya yazın
             fit: BoxFit
@@ -600,7 +484,8 @@ class _SharePostScreenState extends State<SharePostScreen> {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) {
-                    return StylistSelectionSheet(onStylistSelected: _addStylist);
+                    return StylistSelectionSheet(
+                        onStylistSelected: _addStylist);
                   },
                 );
               },
@@ -628,8 +513,50 @@ class _SharePostScreenState extends State<SharePostScreen> {
             width: 312.0, // Genişlik
             height: 56.0, // Yükseklik
             child: ElevatedButton(
-              onPressed: () {
-                // Yeni gönderiyi ekleyip ana sayfaya dön
+              onPressed: () async {
+                try {
+                  final User? user = FirebaseAuth.instance.currentUser;
+                  if (user != null) {
+                    final userDoc = await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.uid)
+                        .get();
+                    final userData = userDoc.data();
+                    if (userData != null) {
+                      String currentUserImage = userData['photoUrl'] ??
+                          'assets/images/placeholder_profile.jpg';
+                      String currentUserName =
+                          userData['displayName'] ?? 'No Name';
+                      final postId = DateTime.now()
+                          .millisecondsSinceEpoch
+                          .toString(); // Unique ID
+                      final postData = {
+                        'id': postId,
+                        'user_uid': userData['uid'],
+                        'createdAt': FieldValue.serverTimestamp(),
+                        'description': "",
+                        'imageUrl': widget.imageUrls[0],
+                        'isFavorited': false,
+                        'liked_users': [],
+                        'likes': 0,
+                        'saved': false,
+                        'shares': 0,
+                        'tags': tags,
+                        'photoUrl': currentUserImage,
+                        'username': currentUserName,
+                        'views': 0,
+                      };
+
+                      await FirebaseFirestore.instance
+                          .collection('posts')
+                          .doc(postId)
+                          .set(postData);
+                      showSuccessSnackBar(context, "Post başarıyla paylaşıldı");
+                    }
+                  }
+                } catch (e) {
+                  showErrorSnackBar(context, "Post paylaşılırken hata oluştu");
+                }
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
               style: ElevatedButton.styleFrom(
@@ -651,14 +578,12 @@ class _SharePostScreenState extends State<SharePostScreen> {
               ),
             ),
           ),
-
           Expanded(
             child: ListView(
               children: selectedStylists.map((stylist) {
                 return ListTile(
                   title: Text(stylist),
-                  leading:
-                  IconButton(
+                  leading: IconButton(
                     icon: const ImageIcon(
                       AssetImage('assets/icon/yıldız2.png'),
                     ),
@@ -673,6 +598,7 @@ class _SharePostScreenState extends State<SharePostScreen> {
     );
   }
 }
+
 class StylistSelectionSheet extends StatefulWidget {
   final Function(String) onStylistSelected;
 
@@ -683,23 +609,10 @@ class StylistSelectionSheet extends StatefulWidget {
 }
 
 class _StylistSelectionSheetState extends State<StylistSelectionSheet> {
-  final List<Map<String, String>> stylists = [
-    {'name': 'Sena Erdağ', 'image': 'assets/images/aramafoto1.png'},
-    {'name': 'Efe Akman', 'image': 'assets/images/aramafoto2.png'},
-    {'name': 'Kerem Dursun', 'image': 'assets/images/aramafoto3.png'},
-    {'name': 'Hülya Yıldız', 'image': 'assets/images/aramafoto4.png'},
-    {'name': 'Chris Bromd', 'image': 'assets/images/aramafoto5.png'},
-    {'name': 'Hande Ateş', 'image': 'assets/images/aramafoto6.png'},
-  ];
-
   String query = '';
 
   @override
   Widget build(BuildContext context) {
-    final filteredStylists = stylists.where((stylist) {
-      return stylist['name']!.toLowerCase().contains(query.toLowerCase());
-    }).toList();
-
     return Container(
       padding: EdgeInsets.all(16),
       child: Column(
@@ -734,33 +647,56 @@ class _StylistSelectionSheetState extends State<StylistSelectionSheet> {
           ),
           SizedBox(height: 10),
           Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
-              itemCount: filteredStylists.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    widget.onStylistSelected(filteredStylists[index]['name']!);
-                    Navigator.pop(context);
-                  },
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage:
-                        AssetImage(filteredStylists[index]['image']!),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        filteredStylists[index]['name']!,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
+            child: StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection('users').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                final users = snapshot.data!.docs;
+                final filteredStylists = users.where((user) {
+                  return user['displayName']
+                      .toLowerCase()
+                      .contains(query.toLowerCase());
+                }).toList();
+
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
                   ),
+                  itemCount: filteredStylists.length,
+                  itemBuilder: (context, index) {
+                    final user =
+                        filteredStylists[index].data() as Map<String, dynamic>;
+                    final displayName = user['displayName'] ?? 'No Name';
+                    final photoUrl = user.containsKey('photoUrl') &&
+                            user['photoUrl'] != null
+                        ? user['photoUrl']
+                        : 'assets/images/default_profile.png'; // Varsayılan resim yolu
+
+                    return GestureDetector(
+                      onTap: () {
+                        widget.onStylistSelected(displayName);
+                        Navigator.pop(context);
+                      },
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(photoUrl),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            displayName,
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 );
               },
             ),
@@ -770,7 +706,6 @@ class _StylistSelectionSheetState extends State<StylistSelectionSheet> {
     );
   }
 }
-
 
 class SearchTab extends StatelessWidget {
   @override

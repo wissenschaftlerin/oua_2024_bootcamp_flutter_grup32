@@ -3,6 +3,7 @@
 import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/screens/auth/sign_in/login.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Screen1 extends StatelessWidget {
   const Screen1({super.key});
@@ -264,6 +265,11 @@ class Screen4 extends StatelessWidget {
 class Screen5 extends StatelessWidget {
   const Screen5({super.key});
 
+  Future<void> _setOnboardingCompleted() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboarding_completed', true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -319,8 +325,9 @@ class Screen5 extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 50),
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        await _setOnboardingCompleted();
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
@@ -333,7 +340,6 @@ class Screen5 extends StatelessWidget {
                             AppColors.backgroundColor2, // text color
                         padding: const EdgeInsets.symmetric(
                             horizontal: 50, vertical: 15),
-
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),

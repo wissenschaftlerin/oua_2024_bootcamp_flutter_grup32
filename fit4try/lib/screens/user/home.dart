@@ -2,7 +2,7 @@ import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/screens/user/ai_screen.dart';
 import 'package:fit4try/screens/user/community_screen.dart';
 import 'package:fit4try/screens/user/guard_screen.dart';
-import 'package:fit4try/screens/user/home_screen.dart';
+import 'package:fit4try/screens/user/home_page_screen.dart';
 import 'package:fit4try/screens/user/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -31,10 +31,10 @@ class _MyHomePageStatess extends State<MyHomePagess> {
   late int _currentIndex;
 
   final List<Widget> _pages = [
-    HomeScreen(),
+    HomeTab(),
     CommunityScreen(),
-    GuardScreen(),
     AiScreen(),
+    GuardScreen(),
     ProfileScreen(),
   ];
 
@@ -52,50 +52,55 @@ class _MyHomePageStatess extends State<MyHomePagess> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex],
-      bottomNavigationBar: SalomonBottomBar(
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppColors.backgroundColor1,
-        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: AppColors.primaryColor5,
+        unselectedItemColor: Colors.grey,
         items: [
-          SalomonBottomBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icon/home2.png',
+              width: 36,
+              height: 36,
+            ),
+            label: '',
           ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.group),
-            title: Text('Community'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icon/community.png',
+              width: 36,
+              height: 36,
+            ),
+            label: '',
           ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.lock),
-            title: Text('Guard'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icon/picture.png',
+              width: 36,
+              height: 36,
+            ),
+            label: '',
           ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.star),
-            title: Text('AI'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icon/aı.png',
+              width: 36,
+              height: 36,
+            ),
+            label: '',
           ),
-          SalomonBottomBarItem(
-            icon: profilePhotoUrl != null
-                ? CircleAvatar(
-                    backgroundImage: AssetImage(profilePhotoUrl!),
-                  )
-                : CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
-            title: Text('Profile'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: CircleAvatar(
+              radius: 12,
+              backgroundImage: AssetImage('assets/icon/foto.png'),
+            ),
+            label: '',
           ),
         ],
       ),

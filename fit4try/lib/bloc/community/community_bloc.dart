@@ -1,9 +1,9 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fit4try/bloc/community/cummunity_state.dart';
 import 'package:fit4try/models/post_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'community_event.dart';
-import 'community_state.dart';
 
 class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

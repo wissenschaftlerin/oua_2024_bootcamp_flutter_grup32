@@ -1,7 +1,10 @@
+import 'package:fit4try/bloc/auth/auth_bloc.dart';
+import 'package:fit4try/bloc/auth/auth_event.dart';
 import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/constants/style.dart';
 import 'package:fit4try/widgets/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 class StylesScreen extends StatelessWidget {
@@ -75,6 +78,11 @@ class _WomanStyleState extends State<WomanStyle> {
   final PageController _pageController = PageController();
   int _currentStep = 0;
   bool isFemale = false;
+  @override
+  void initState() {
+    super.initState();
+    // BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
+  }
 
   Color _indicatorColors(int value) {
     switch (value) {
@@ -97,11 +105,16 @@ class _WomanStyleState extends State<WomanStyle> {
     }
   }
 
+  List<int> selectedIndices = [];
+
   void _nextPage() {
     if (_currentStep < 7) {
       setState(() {
         _currentStep++;
       });
+      if (_currentStep == 2) {
+        print(selectedIndices);
+      }
       _pageController.nextPage(
         duration: Duration(milliseconds: 300),
         curve: Curves.easeIn,
@@ -128,9 +141,31 @@ class _WomanStyleState extends State<WomanStyle> {
       isFemale = isFemaleSelected;
       _currentStep++;
     });
+    print(isFemale);
     _pageController.nextPage(
       duration: Duration(milliseconds: 300),
       curve: Curves.easeIn,
+    );
+  }
+
+  void _onContainerTapped(int index) {
+    setState(() {
+      if (selectedIndices.contains(index)) {
+        selectedIndices.remove(index);
+      } else {
+        selectedIndices.add(index);
+      }
+    });
+  }
+
+  BoxDecoration _getContainerDecoration(int index) {
+    return BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: selectedIndices.contains(index) ? Colors.purple : Colors.grey,
+        width: 2,
+      ),
+      borderRadius: BorderRadius.circular(8),
     );
   }
 
@@ -138,122 +173,57 @@ class _WomanStyleState extends State<WomanStyle> {
     switch (step) {
       case 1:
         return Container(
-          color: AppColors.backgroundColor1,
+          color: Colors.white,
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
+              _buildContainer(0, "Alişveris", Colors.amber),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "😍️",
-                    style: fontStyle(24, Colors.black, FontWeight.bold),
+                  Expanded(
+                    child: _buildContainer(1,
+                        "Yerli ve milli firmaları tanımak", Colors.amberAccent),
                   ),
-                  Text(
-                    "Neden",
-                    style: fontStyle(24, Colors.black, FontWeight.bold),
-                  ),
-                  Text(
-                    "Fit4Try",
-                    style: fontStyle(24, Colors.black, FontWeight.bold),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: _buildContainer(
+                        2, "Modaya ve trendlere uymak", Colors.amberAccent),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildContainer(3,
+                        "Kendime yeni bir stil oluşturmak", Colors.amberAccent),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: _buildContainer(
+                        4, "Yeni kıyafetler keşfetmek", Colors.amberAccent),
+                  ),
+                ],
               ),
-              Container(
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      child: MyButton(
-                          text: "Alişveris",
-                          buttonColor: Colors.amber,
-                          buttonTextColor: Colors.white,
-                          buttonTextSize: 15,
-                          buttonTextWeight: FontWeight.normal,
-                          onPressed: () {},
-                          buttonWidth: ButtonWidth.xLarge),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: MyButton(
-                              text: "Yerli ve milli firmaları tanımak",
-                              buttonColor: Colors.amberAccent,
-                              buttonTextColor: Colors.white,
-                              buttonTextSize: 20,
-                              buttonTextWeight: FontWeight.normal,
-                              onPressed: () {},
-                              buttonWidth: ButtonWidth.medium),
-                        ),
-                        Container(
-                          child: MyButton(
-                              text: "Modaya ve trendlere uymak",
-                              buttonColor: Colors.amberAccent,
-                              buttonTextColor: Colors.white,
-                              buttonTextSize: 20,
-                              buttonTextWeight: FontWeight.normal,
-                              onPressed: () {},
-                              buttonWidth: ButtonWidth.medium),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MyButton(
-                            text: "Kendime yeni bir stil oluşturmak",
-                            buttonColor: Colors.amberAccent,
-                            buttonTextColor: Colors.white,
-                            buttonTextSize: 20,
-                            buttonTextWeight: FontWeight.normal,
-                            onPressed: () {},
-                            buttonWidth: ButtonWidth.medium),
-                        MyButton(
-                            text: "Yeni kıyafetler keşfetmek",
-                            buttonColor: Colors.amberAccent,
-                            buttonTextColor: Colors.white,
-                            buttonTextSize: 20,
-                            buttonTextWeight: FontWeight.normal,
-                            onPressed: () {},
-                            buttonWidth: ButtonWidth.medium),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MyButton(
-                            text: "Kendime yeni bir stil oluşturmak",
-                            buttonColor: Colors.amberAccent,
-                            buttonTextColor: Colors.white,
-                            buttonTextSize: 20,
-                            buttonTextWeight: FontWeight.normal,
-                            onPressed: () {},
-                            buttonWidth: ButtonWidth.medium),
-                        MyButton(
-                            text: "Yeni kıyafetler keşfetmek",
-                            buttonColor: Colors.amberAccent,
-                            buttonTextColor: Colors.white,
-                            buttonTextSize: 20,
-                            buttonTextWeight: FontWeight.normal,
-                            onPressed: () {},
-                            buttonWidth: ButtonWidth.medium),
-                      ],
-                    ),
-                  ],
-                ),
-              )
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildContainer(5,
+                        "Kendime yeni bir stil oluşturmak", Colors.amberAccent),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: _buildContainer(
+                        6, "Yeni kıyafetler keşfetmek", Colors.amberAccent),
+                  ),
+                ],
+              ),
             ],
           ),
         );
@@ -1583,6 +1553,29 @@ class _WomanStyleState extends State<WomanStyle> {
           ),
           SizedBox(height: 20),
         ],
+      ),
+    );
+  }
+
+  Widget _buildContainer(int index, String text, Color buttonColor) {
+    return GestureDetector(
+      onTap: () => _onContainerTapped(index),
+      child: Container(
+        width: double.infinity,
+        decoration: _getContainerDecoration(index),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

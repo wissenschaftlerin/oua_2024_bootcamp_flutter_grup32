@@ -1,4 +1,6 @@
 import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fit4try/constants/fonts.dart';
@@ -6,7 +8,9 @@ import 'package:fit4try/constants/style.dart';
 import 'package:fit4try/widgets/text_field.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen({super.key});
+  final String chatId;
+
+  const MessageScreen({required this.chatId, Key? key}) : super(key: key);
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -18,26 +22,26 @@ class _MessageScreenState extends State<MessageScreen> {
   bool obscureText = false;
   TextInputType keyboardType = TextInputType.text;
   bool enabled = true;
-
-  List<Map<String, String>> messages = [
-    {"from": "me", "message": "Hello!"},
-    {"from": "you", "message": "Hi there!"},
-  ];
-
   File? _selectedImage;
 
-  void _sendMessage() {
+  void _sendMessage() async {
     if (controller.text.isNotEmpty) {
-      setState(() {
-        messages.add({"from": "me", "message": controller.text});
-        controller.clear();
-        _selectedImage = null;
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
+      await FirebaseFirestore.instance
+          .collection('chats')
+          .doc(widget.chatId)
+          .collection('messages')
+          .add({
+        'from': 'me', // Replace with the current user's id
+        'message': controller.text,
+        'timestamp': FieldValue.serverTimestamp(),
       });
+
+      controller.clear();
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     }
   }
 
@@ -102,15 +106,37 @@ class _MessageScreenState extends State<MessageScreen> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                if (messages[index]["from"] == "me") {
-                  return messageBoxMe(messages[index]["message"]!);
-                } else {
-                  return messageBoxYou(messages[index]["message"]!);
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('chats')
+                  .doc(widget.chatId)
+                  .collection('messages')
+                  .orderBy('timestamp', descending: true)
+                  .snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
                 }
+
+                List<DocumentSnapshot> docs = snapshot.data!.docs;
+                List<Map<String, dynamic>> messages = docs
+                    .map((doc) => {
+                          'from': doc['from'],
+                          'message': doc['message'],
+                        })
+                    .toList();
+
+                return ListView.builder(
+                  controller: _scrollController,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    if (messages[index]['from'] == 'me') {
+                      return messageBoxMe(messages[index]['message']);
+                    } else {
+                      return messageBoxYou(messages[index]['message']);
+                    }
+                  },
+                );
               },
             ),
           ),

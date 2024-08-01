@@ -1,3 +1,5 @@
+import 'package:fit4try/bloc/auth/auth_bloc.dart';
+import 'package:fit4try/bloc/auth/auth_event.dart';
 import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/constants/style.dart';
 import 'package:fit4try/screens/settings/application_details/application_details_screen.dart';
@@ -8,10 +10,11 @@ import 'package:fit4try/screens/user/ai_screen.dart';
 import 'package:fit4try/screens/user/community_screen.dart';
 import 'package:fit4try/screens/user/guard_screen.dart';
 import 'package:fit4try/screens/user/home.dart';
-import 'package:fit4try/screens/user/home_screen.dart';
+import 'package:fit4try/screens/user/home_page_screen.dart';
 import 'package:fit4try/screens/user/message_screen.dart';
 import 'package:fit4try/screens/user/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -22,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
     String? profilePhotoUrl = 'assets/images/placeholder_profile.jpg';
 
     final List<Widget> pages = [
-      HomeScreen(),
+      HomeTab(),
       CommunityScreen(),
       GuardScreen(),
       AiScreen(),
@@ -81,34 +84,6 @@ class SettingsScreen extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             "Profil Ayarları",
-                            style: fontStyle(15, AppColors.secondaryColor2,
-                                FontWeight.normal),
-                          ),
-                        ],
-                      )),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MessageScreen()));
-                  },
-                  child: Container(
-                      padding: EdgeInsets.only(
-                          left: 5, right: 5, top: 15, bottom: 15),
-                      decoration: BoxDecoration(
-                          border: Border(
-                        bottom: BorderSide(width: 0.2, color: Colors.grey),
-                      )),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.public,
-                            color: AppColors.primaryColor3,
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            "Mesajlara gir test",
                             style: fontStyle(15, AppColors.secondaryColor2,
                                 FontWeight.normal),
                           ),
@@ -263,9 +238,8 @@ class SettingsScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: SalomonBottomBar(
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppColors.backgroundColor1,
-        currentIndex: 4,
         onTap: (index) {
           Navigator.pushReplacement(
             context,
@@ -275,42 +249,48 @@ class SettingsScreen extends StatelessWidget {
                     )),
           );
         },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: AppColors.primaryColor5,
+        unselectedItemColor: Colors.grey,
         items: [
-          SalomonBottomBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icon/home2.png',
+              width: 36,
+              height: 36,
+            ),
+            label: '',
           ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.group),
-            title: Text('Community'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icon/community.png',
+              width: 36,
+              height: 36,
+            ),
+            label: '',
           ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.lock),
-            title: Text('Guard'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icon/picture.png',
+              width: 36,
+              height: 36,
+            ),
+            label: '',
           ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.star),
-            title: Text('AI'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icon/aı.png',
+              width: 36,
+              height: 36,
+            ),
+            label: '',
           ),
-          SalomonBottomBarItem(
-            icon: profilePhotoUrl != null
-                ? CircleAvatar(
-                    backgroundImage: AssetImage(profilePhotoUrl),
-                  )
-                : CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
-            title: Text('Profile'),
-            selectedColor: AppColors.primaryColor5,
-            unselectedColor: Colors.grey,
+          BottomNavigationBarItem(
+            icon: CircleAvatar(
+              radius: 12,
+              backgroundImage: AssetImage('assets/icon/foto.png'),
+            ),
+            label: '',
           ),
         ],
       ),
@@ -360,6 +340,7 @@ class SettingsScreen extends StatelessWidget {
                     onPressed: () {
                       // Çıkış yapma işlemi burada yapılır
                       Navigator.pop(context);
+                      BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
                     },
                   ),
                 ],

@@ -1,7 +1,12 @@
 // login ekranının görüntüsü
 
+import 'package:fit4try/bloc/auth/auth_bloc.dart';
+import 'package:fit4try/bloc/auth/auth_event.dart';
+import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/screens/auth/sign_up/sign_up_screen.dart';
+import 'package:fit4try/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 // pubspec.yaml dosyasına eklenenler
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,11 +25,12 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor1,
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 200.0, 16.0, 16.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 100.0, 16.0, 16.0),
               child: Column(
                 children: [
                   selectedUserType == 'Bireysel'
@@ -119,157 +125,139 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFormField(
-            controller: usernameController,
-            decoration: InputDecoration(
-              labelText: 'Kullanıcı Adı / E-Mail',
-              hintText: 'Kullanıcı adı / E-Mail',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Lütfen bir kullanıcı adı girin';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              labelText: 'Şifre',
-              hintText: 'Şifre',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  isPasswordVisible
-                      ? FontAwesomeIcons.eye
-                      : FontAwesomeIcons.eyeSlash,
+    return BlocProvider(
+        create: (context) => AuthBloc(),
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Image.asset(
+                  "assets/images/fit4try_logo.png",
+                  width: 200,
+                  height: 200,
                 ),
-                onPressed: () {
-                  setState(() {
-                    isPasswordVisible = !isPasswordVisible;
-                  });
-                },
               ),
-            ),
-            obscureText: !isPasswordVisible,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Lütfen bir şifre girin';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 16),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                rememberMe = !rememberMe;
-              });
-            },
-            child: Row(
-              children: [
-                Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.deepPurple,
-                      width: 2.0,
-                    ),
-                    color: rememberMe ? Colors.deepPurple : Colors.transparent,
+              MyTextField(
+                  controller: usernameController,
+                  hintText: "E-Mail",
+                  obscureText: false,
+                  showBorder: true,
+                  keyboardType: TextInputType.emailAddress,
+                  enabled: true),
+              const SizedBox(height: 16),
+              MyTextField(
+                  controller: passwordController,
+                  hintText: "Password",
+                  obscureText: !isPasswordVisible,
+                  maxLines: 1,
+                  suffixIcon: IconButton(
+                    icon: Icon(isPasswordVisible
+                        ? FontAwesomeIcons.eye
+                        : FontAwesomeIcons.eyeSlash),
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
                   ),
-                  child: rememberMe
-                      ? const Icon(
-                          Icons.check,
-                          size: 18.0,
-                          color: Colors.white,
-                        )
-                      : null,
+                  showBorder: true,
+                  keyboardType: TextInputType.emailAddress,
+                  enabled: true),
+              const SizedBox(height: 16),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: isFormValid
+                    ? () {
+                        if (formKey.currentState!.validate()) {
+                          // Perform login action
+                          print("Giriş yaps");
+                          if (formKey.currentState!.validate()) {
+                            print(usernameController.text);
+                            print(passwordController.text);
+                            context.read<AuthBloc>().add(
+                                SignInWithEmailAndPassword(
+                                    email: usernameController.text,
+                                    password: passwordController.text));
+                          }
+                        }
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isFormValid
+                      ? const Color(0xFF8819DC)
+                      : const Color(0xFFC1AFCF),
+                  minimumSize: const Size(double.infinity, 48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                 ),
-                const SizedBox(width: 8),
-                const Text('Beni hatırla'),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: isFormValid
-                ? () {
-                    if (formKey.currentState!.validate()) {
-                      // Perform login action
-                    }
-                  }
-                : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: isFormValid
-                  ? const Color(0xFF8819DC)
-                  : const Color(0xFFC1AFCF),
-              minimumSize: const Size(double.infinity, 48),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+                child: const Text(
+                  'Giriş Yap',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-            ),
-            child: const Text(
-              'Giriş Yap',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton.icon(
-            onPressed: () {
-              // Perform Google login action
-            },
-            icon: const FaIcon(
-              FontAwesomeIcons.google,
-              color: Color(0xFFCCCCCC),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: const Color(0xFFCCCCCC),
-              minimumSize: const Size(double.infinity, 48),
-              side: const BorderSide(color: Color(0xFFCCCCCC)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: () {
+                  // Perform Google login action
+                  context.read<AuthBloc>().add(GoogleSignInEvent());
+                },
+                icon: const FaIcon(
+                  FontAwesomeIcons.google,
+                  color: Color(0xFFCCCCCC),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: const Color(0xFFCCCCCC),
+                  minimumSize: const Size(double.infinity, 48),
+                  side: const BorderSide(color: Color(0xFFCCCCCC)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+                label: const Text('Google ile Giriş Yap'),
               ),
-            ),
-            label: const Text('Google ile Giriş Yap'),
-          ),
-          const SizedBox(height: 16),
-          Center(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              const SizedBox(height: 16),
+              Center(
+                child: Column(
                   children: [
-                    Text(
-                      'Hesabınız yok mu?',
-                      style: GoogleFonts.roboto(
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Hesabınız yok mu?',
+                          style: GoogleFonts.roboto(
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignUpScreen()));
+                          },
+                          child: Text(
+                            'Kayıt Ol',
+                            style: GoogleFonts.roboto(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpScreen()));
+                        // Navigate to forgot password screen
                       },
                       child: Text(
-                        'Kayıt Ol',
+                        'Şifremi Unuttum',
                         style: GoogleFonts.roboto(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -279,24 +267,9 @@ class _SignInFormState extends State<SignInForm> {
                     ),
                   ],
                 ),
-                TextButton(
-                  onPressed: () {
-                    // Navigate to forgot password screen
-                  },
-                  child: Text(
-                    'Şifremi Unuttum',
-                    style: GoogleFonts.roboto(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }

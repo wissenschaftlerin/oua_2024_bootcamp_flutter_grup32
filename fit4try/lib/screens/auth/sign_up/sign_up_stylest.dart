@@ -1,8 +1,14 @@
 import 'dart:async';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:fit4try/bloc/auth/auth_bloc.dart';
 import 'package:fit4try/bloc/auth/auth_event.dart';
+import 'package:fit4try/bloc/auth/auth_state.dart';
 import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/constants/style.dart';
+import 'package:fit4try/screens/auth/sign_up/sign_up_stylest.dart';
+import 'package:fit4try/screens/auth/sign_up/sign_up_user.dart';
 import 'package:fit4try/screens/user/home.dart';
 import 'package:fit4try/widgets/buttons.dart';
 import 'package:fit4try/widgets/flash_message.dart';
@@ -10,27 +16,28 @@ import 'package:fit4try/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 
-class SignUpUser extends StatefulWidget {
-  const SignUpUser({Key? key}) : super(key: key);
+class SignUpStylest extends StatefulWidget {
+  const SignUpStylest({super.key});
 
   @override
-  State<SignUpUser> createState() => _SignUpUserState();
+  State<SignUpStylest> createState() => _SignUpStylestState();
 }
 
-class _SignUpUserState extends State<SignUpUser> {
+class _SignUpStylestState extends State<SignUpStylest> {
   final PageController _pageController = PageController();
   int _currentStep = 0;
   final List<TextEditingController> _controllers =
-      List.generate(5, (_) => TextEditingController());
+      List.generate(7, (_) => TextEditingController());
   late StreamController<bool> _buttonStateController;
   final AuthBloc _authBloc = AuthBloc();
   Map<int, Color> _stepColors = {
-    // 0: AppColors.primaryColor1,
-    0: AppColors.primaryColor2,
-    1: AppColors.primaryColor3,
-    2: AppColors.primaryColor4,
-    3: AppColors.primaryColor5,
+    0: AppColors.primaryColor1,
+    1: AppColors.primaryColor2,
+    2: AppColors.primaryColor3,
+    3: AppColors.primaryColor4,
+    4: AppColors.primaryColor5,
   };
 
   @override
@@ -67,7 +74,7 @@ class _SignUpUserState extends State<SignUpUser> {
               _controllers[0].text,
               _controllers[1].text,
               _controllers[2].text,
-              _controllers[3].text, "",
+              _controllers[3].text, _controllers[6].text,
               0, // methodsType değişkenini burada belirleyin
             ));
             print("tamamlandı");
@@ -90,8 +97,9 @@ class _SignUpUserState extends State<SignUpUser> {
           _controllers[0].text,
           _controllers[1].text,
           _controllers[2].text,
-          _controllers[3].text, "",
-          0, // methodsType değişkenini burada belirleyin
+          _controllers[3].text,
+          _controllers[6].text,
+          1, // methodsType değişkenini burada belirleyin
         ));
         print("tamamlandı");
         setState(() {
@@ -123,7 +131,7 @@ class _SignUpUserState extends State<SignUpUser> {
   Widget _buildProgressBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(4, (index) {
+      children: List.generate(5, (index) {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: 4.0),
           width: 40.0,
@@ -152,36 +160,19 @@ class _SignUpUserState extends State<SignUpUser> {
               child: PageView.builder(
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 4,
+                itemCount: 5,
                 itemBuilder: (context, index) {
                   switch (index) {
                     case 0:
-                      return UserInfoStep(
+                      return StylestInfoStep(
                           nameController: _controllers[0],
                           usernameController: _controllers[1],
                           emailController: _controllers[2],
                           passwordController: _controllers[3],
-                          passwordControlleragain: _controllers[4]
-                          // onNext: () async {
-                          //   try {
-                          //     // print("asdasd");
-                          //     // _authBloc.add(AuthUserInfoSubmitted(
-                          //     //   _controllers[0].text,
-                          //     //   _controllers[1].text,
-                          //     //   _controllers[2].text,
-                          //     //   _controllers[3].text,
-                          //     //   0, // methodsType değişkenini burada belirleyin
-                          //     // ));
-                          //     // print("tamamlandı");
-                          //     // _nextPage();
-                          //   } catch (e) {
-                          //     print("$e");
-                          //   }
-                          // },
-                          );
+                          passwordControlleragain: _controllers[4]);
                     case 1:
                       return VerificationStep(
-                        verificationController: _controllers[4],
+                        verificationController: _controllers[5],
                         // onNext: () {
                         //   // _authBloc.add(AuthVerificationCodeSubmitted(
                         //   //     _controllers[4].text));
@@ -197,6 +188,10 @@ class _SignUpUserState extends State<SignUpUser> {
                       );
 
                     case 3:
+                      return DeneyimStep(
+                          onNext: _nextPage,
+                          bahsetmeController: _controllers[6]);
+                    case 4:
                       return WelcomeStep(onNext: _nextPage);
                     default:
                       return Container();
@@ -250,7 +245,7 @@ class _SignUpUserState extends State<SignUpUser> {
   }
 }
 
-class UserInfoStep extends StatefulWidget {
+class StylestInfoStep extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController usernameController;
   final TextEditingController emailController;
@@ -258,7 +253,7 @@ class UserInfoStep extends StatefulWidget {
   final TextEditingController passwordControlleragain;
   // final VoidCallback onNext;
 
-  UserInfoStep({
+  StylestInfoStep({
     required this.nameController,
     required this.usernameController,
     required this.emailController,
@@ -268,10 +263,10 @@ class UserInfoStep extends StatefulWidget {
   });
 
   @override
-  _UserInfoStepState createState() => _UserInfoStepState();
+  _StylestInfoStepState createState() => _StylestInfoStepState();
 }
 
-class _UserInfoStepState extends State<UserInfoStep> {
+class _StylestInfoStepState extends State<StylestInfoStep> {
   bool _isPasswordVisible = false;
 
   void _togglePasswordVisibility() {
@@ -461,6 +456,113 @@ class PhotoUploadStep extends StatelessWidget {
   }
 }
 
+class DeneyimStep extends StatefulWidget {
+  final VoidCallback onNext;
+  final TextEditingController bahsetmeController;
+
+  DeneyimStep({required this.onNext, required this.bahsetmeController});
+
+  @override
+  _DeneyimStepState createState() => _DeneyimStepState();
+}
+
+class _DeneyimStepState extends State<DeneyimStep> {
+  bool _fileSelected = false;
+  File? _file;
+
+  void _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null && result.files.single.path != null) {
+      setState(() {
+        _file = File(result.files.single.path!);
+        _fileSelected = true;
+      });
+    }
+  }
+
+  void _uploadFileAndSaveLink() {
+    if (_file != null) {
+      BlocProvider.of<AuthBloc>(context).add(UploadFileEvent(_file!));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lütfen bir dosya seçin.')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthFileUploadSuccess) {
+            BlocProvider.of<AuthBloc>(context)
+                .add(UpdateUserInformation(state.fileUrl));
+          } else if (state is AuthUpdateSuccess) {
+            widget.onNext();
+          } else if (state is AuthFileUploadFailure ||
+              state is AuthUpdateFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                  'Error: ${state is AuthFileUploadFailure ? state.error : (state as AuthUpdateFailure).error}'),
+            ));
+          }
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Deneyimlerinden Bahseder Misin?',
+              style: fontStyle(28, Colors.black, FontWeight.bold),
+              overflow: TextOverflow.visible,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              'İçeride sana danışabilecek bir çok insan var. Bu sebeple seni daha yakından tanımak istiyoruz. İster kendini anlatabilir veya portföyünü koyabilirsin?',
+              style: fontStyle(15, Colors.black, FontWeight.normal),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            MyTextField(
+              controller: widget.bahsetmeController,
+              hintText: "Kısaca kendinden bahseder misin?",
+              obscureText: false,
+              keyboardType: TextInputType.text,
+              enabled: true,
+              maxLines: 5,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton.icon(
+              icon: _fileSelected ? Icon(Icons.check) : Icon(Icons.attach_file),
+              label: Text(
+                "Dosya Ekle",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              onPressed: _pickFile,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: _uploadFileAndSaveLink,
+              child: Text('Başla'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class WelcomeStep extends StatelessWidget {
   final VoidCallback onNext;
 
@@ -473,13 +575,20 @@ class WelcomeStep extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Aramıza Hoş Geldin 🎉',
+            'Seni Biraz Bekleteceğiz',
             style: fontStyle(28, Colors.black, FontWeight.bold),
           ),
           SizedBox(
             height: 30,
           ),
-          Image.asset('assets/images/confetti.png'),
+          Text(
+            'Bizimle paylaştığın bilgileri ekibimiz inceliyor. İnceleme bitene kadar uygulamada gezebilirsin. İnceleme bittiğinde herhangi bir sorun olması durumunda seninle iletişime geçeceğiz. Herhangi bir sorun olmaması durumunda Fit4Try hesabın onaylı olmuş olacak. En iyi dileklerimizle...',
+            style: fontStyle(28, Colors.black, FontWeight.bold),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Image.asset("undraw_Chat_bot_re_e2gj.png", height: 100, width: 100),
           SizedBox(
             height: 30,
           ),

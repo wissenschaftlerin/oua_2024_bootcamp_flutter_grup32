@@ -1,5 +1,6 @@
 import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/constants/style.dart';
+import 'package:fit4try/screens/auth/sign_up/sign_up_stylest.dart';
 import 'package:fit4try/screens/auth/sign_up/sign_up_user.dart';
 import 'package:fit4try/widgets/buttons.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               buttonTextColor: Colors.white,
               buttonTextSize: 20,
               buttonTextWeight: FontWeight.normal,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: const SignUpStylest()));
+              },
               buttonWidth: ButtonWidth.medium,
             )),
           ],
