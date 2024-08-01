@@ -1,243 +1,300 @@
-// import 'package:bloc/bloc.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:fit4try/bloc/auth/auth_event.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
-// import 'auth_state.dart';
+import 'dart:io';
+import 'dart:math';
 
-// class AuthBloc extends Bloc<AuthEvent, AuthState> {
-//   final FirebaseAuth _auth = FirebaseAuth.instance;
-//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-//   AuthBloc() : super(AuthInitial()) {
-//     on<SignInWithEmailAndPassword>(_onSignInWithEmailAndPassword);
-//     on<SignUpWithEmailAndPassword>(_onSignUpWithEmailAndPassword);
-//     on<SignOut>(_onSignOut);
-//     on<SignInWithGoogle>(_onSignInWithGoogle);
-//   }
-
-//   Future<void> _onSignInWithEmailAndPassword(
-//       SignInWithEmailAndPassword event, Emitter<AuthState> emit) async {
-//     emit(AuthLoading());
-//     try {
-//       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-//           email: event.email, password: event.password);
-
-//       var profileData = await _getProfileData();
-//       emit(Authenticated(_auth.currentUser?.displayName ?? "User",
-//           profileData['new_user'], profileData['new_stylest']));
-//     } catch (e) {
-//       emit(AuthError(e.toString()));
-//     }
-//   }
-
-//   Future<void> _onSignUpWithEmailAndPassword(
-//       SignUpWithEmailAndPassword event, Emitter<AuthState> emit) async {
-//     emit(AuthLoading());
-//     try {
-//       var existingUser = await _auth.fetchSignInMethodsForEmail(event.email);
-//       if (existingUser.isNotEmpty) {
-//         emit(AuthError("Bu e-posta zaten kullanımda."));
-//         return;
-//       }
-
-//       UserCredential userCredential =
-//           await _auth.createUserWithEmailAndPassword(
-//               email: event.email, password: event.password);
-
-//       await _firestore.collection('users').doc(userCredential.user!.uid).set({
-//         'displayName': event.name,
-//         'uid': userCredential.user?.uid,
-//         'profilePhoto': "",
-//         'phoneNumber': '',
-//         'educationLevel': '',
-//         'address': '',
-//         "fcmToken": "",
-//         'email': event.email,
-//         "aiChats": [],
-//         "new_user": true,
-//         "new_stylest": true,
-//         'userType': event.methodsType == 0 ? 'kullanici' : 'stilist',
-//         'updatedUser': DateTime.now(),
-//         'createdAt': DateTime.now(),
-//       });
-
-//       var profileData = await _getProfileData();
-//       emit(Authenticated(_auth.currentUser?.displayName ?? "User",
-//           profileData['new_user'], profileData['new_stylest']));
-//     } catch (e) {
-//       emit(AuthError(e.toString()));
-//     }
-//   }
-
-//   Future<void> _onSignOut(SignOut event, Emitter<AuthState> emit) async {
-//     await _auth.signOut();
-//     emit(Unauthenticated());
-//   }
-
-//   Future<void> _onSignInWithGoogle(
-//       SignInWithGoogle event, Emitter<AuthState> emit) async {
-//     emit(AuthLoading());
-//     try {
-//       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//       final GoogleSignInAuthentication googleAuth =
-//           await googleUser!.authentication;
-//       final credential = GoogleAuthProvider.credential(
-//           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-//       UserCredential userCredential =
-//           await _auth.signInWithCredential(credential);
-//       User? user = userCredential.user;
-
-//       if (user != null) {
-//         if (userCredential.additionalUserInfo!.isNewUser) {
-//           await _firestore.collection('users').doc(user.uid).set({
-//             'displayName': user.displayName,
-//             'uid': user.uid,
-//             'profilePhoto': user.photoURL,
-//             'phoneNumber': '',
-//             'educationLevel': '',
-//             'address': '',
-//             "fcmToken": "",
-//             'email': user.email,
-//             "aiChats": [],
-//             'userType': 'kullanici',
-//             "new_user": true,
-//             "new_stylest": true,
-//             'updatedUser': DateTime.now(),
-//             'createdAt': DateTime.now(),
-//           });
-//         }
-//         var profileData = await _getProfileData();
-//         emit(Authenticated(user.displayName ?? "User", profileData['new_user'],
-//             profileData['new_stylest']));
-//       } else {
-//         emit(Unauthenticated());
-//       }
-//     } catch (e) {
-//       emit(AuthError(e.toString()));
-//     }
-//   }
-
-//   Future<Map<String, dynamic>> _getProfileData() async {
-//     String uid = _auth.currentUser?.uid ?? "";
-//     if (uid.isEmpty) {
-//       return {"new_user": false, "new_stylest": false};
-//     }
-//     DocumentSnapshot<Map<String, dynamic>> snapshot =
-//         await _firestore.collection("users").doc(uid).get();
-
-//     if (snapshot.exists) {
-//       Map<String, dynamic> data = snapshot.data()!;
-//       return {
-//         "new_user": data["new_user"] ?? false,
-//         "new_stylest": data["new_stylest"] ?? false,
-//       };
-//     } else {
-//       return {"new_user": false, "new_stylest": false};
-//     }
-//   }
-// }
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'auth_event.dart';
-import 'auth_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fit4try/bloc/auth/auth_event.dart';
+import 'package:fit4try/bloc/auth/auth_state.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firestore;
+  final FirebaseStorage _storage;
+  final GoogleSignIn _googleSignIn;
 
-  AuthBloc() : super(AuthInitial()) {
+  AuthBloc()
+      : _firebaseAuth = FirebaseAuth.instance,
+        _firestore = FirebaseFirestore.instance,
+        _storage = FirebaseStorage.instance,
+        _googleSignIn = GoogleSignIn(),
+        super(AuthInitial()) {
     on<CheckAuthStatus>(_onCheckAuthStatus);
-    on<SignUpWithEmailAndPassword>(_onSignUpWithEmailAndPassword);
+    on<AuthUserInfoSubmitted>(_onAuthUserInfoSubmitted);
+    on<LogoutEvent>(_onLogoutEvent);
+    on<GoogleSignInEvent>(_onGoogleSignInEvent);
     on<SignInWithEmailAndPassword>(_onSignInWithEmailAndPassword);
-    on<SignOut>(_onSignOut);
+
+    // on<AuthVerificationCodeSubmitted>(_onAuthVerificationCodeSubmitted);
+    on<AuthPhotoUploaded>(_onAuthPhotoUploaded);
+    on<UploadFileEvent>(_onUploadFileEvent);
+    on<UpdateUserInformation>(_onUpdateUserInformation);
   }
 
   Future<void> _onCheckAuthStatus(
-      CheckAuthStatus event, Emitter<AuthState> emit) async {
-    User? user = _auth.currentUser;
-    if (user != null) {
-      DocumentSnapshot<Map<String, dynamic>> snapshot =
-          await _firestore.collection('users').doc(user.uid).get();
-      if (snapshot.exists) {
-        Map<String, dynamic> data = snapshot.data()!;
-        bool newUser = data['new_user'] ?? false;
-        bool newStylest = data['new_stylest'] ?? false;
-        emit(Authenticated(
-            user: user, newUser: newUser, newStylest: newStylest));
+    CheckAuthStatus event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      User? user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        DocumentSnapshot userDoc =
+            await _firestore.collection('users').doc(user.uid).get();
+
+        bool newUser = userDoc['new_user'] ?? false;
+        bool newStylest = userDoc['new_stylest'] ?? false;
+
+        emit(Authenticated(newUser: newUser, newStylest: newStylest));
       } else {
         emit(Unauthenticated());
       }
-    } else {
-      emit(Unauthenticated());
-    }
-  }
-
-  Future<void> _onSignUpWithEmailAndPassword(
-      SignUpWithEmailAndPassword event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
-    try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-        email: event.email,
-        password: event.password,
-      );
-      await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'displayName': event.name,
-        'uid': userCredential.user?.uid,
-        'profilePhoto': "",
-        'phoneNumber': '',
-        'educationLevel': '',
-        'address': '',
-        "fcmToken": "",
-        'email': event.email,
-        "aiChats": [],
-        "new_user": true,
-        "new_stylest": true,
-        'userType': event.methodsType == 0 ? 'kullanici' : 'stilist',
-        'updatedUser': DateTime.now(),
-        'createdAt': DateTime.now(),
-      });
-      emit(Authenticated(
-          user: userCredential.user!, newUser: true, newStylest: true));
     } catch (e) {
-      emit(AuthError(message: e.toString()));
+      emit(AuthFailure(e.toString()));
     }
   }
 
   Future<void> _onSignInWithEmailAndPassword(
-      SignInWithEmailAndPassword event, Emitter<AuthState> emit) async {
+    SignInWithEmailAndPassword event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithEmailAndPassword(
         email: event.email,
         password: event.password,
       );
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .get();
-      if (snapshot.exists) {
-        Map<String, dynamic> data = snapshot.data()!;
-        bool newUser = data['new_user'] ?? false;
-        bool newStylest = data['new_stylest'] ?? false;
-        emit(Authenticated(
-            user: userCredential.user!,
-            newUser: newUser,
-            newStylest: newStylest));
-      } else {
-        emit(Unauthenticated());
+
+      User? user = userCredential.user;
+
+      if (user != null) {
+        emit(AuthFailure('User not found'));
       }
     } catch (e) {
-      emit(AuthError(message: e.toString()));
+      emit(AuthFailure(e.toString()));
     }
   }
 
-  Future<void> _onSignOut(SignOut event, Emitter<AuthState> emit) async {
-    await _auth.signOut();
-    emit(Unauthenticated());
+  Future<void> _onAuthUserInfoSubmitted(
+    AuthUserInfoSubmitted event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+              email: event.email, password: event.password);
+      User? user = userCredential.user;
+
+      if (user != null) {
+        await user.sendEmailVerification();
+
+        await _firestore.collection('users').doc(user.uid).set({
+          'displayName': event.name,
+          'username': event.username,
+          'uid': userCredential.user?.uid,
+          'profilePhoto': "",
+          'phoneNumber': '',
+          'educationLevel': '',
+          'address': '',
+          "fcmToken": "",
+          'followers': 0,
+          'following': 0,
+          'email': event.email,
+          "aiChats": [],
+          "deneyim": event.deneyim,
+          "emailVerified": false,
+          "new_user": event.methodsType == 0 ? true : false,
+          "new_stylest": event.methodsType == 0 ? false : true,
+          'userType': event.methodsType == 0 ? 'kullanici' : 'stilist',
+          'updatedUser': DateTime.now(),
+          'createdAt': DateTime.now(),
+        });
+
+        emit(Authenticated(newUser: true, newStylest: false));
+      } else {
+        emit(AuthFailure('User creation failed'));
+      }
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
+  // Future<void> _onAuthVerificationCodeSubmitted(
+  //   AuthVerificationCodeSubmitted event,
+  //   Emitter<AuthState> emit,
+  // ) async {
+  //   emit(AuthLoading());
+  //   try {
+  //     User? user = _firebaseAuth.currentUser;
+
+  //     if (user != null) {
+  //       DocumentSnapshot userDoc =
+  //           await _firestore.collection('users').doc(user.uid).get();
+  //       String? storedCode = userDoc['verificationCode'];
+
+  //       if (storedCode == event.verificationCode) {
+  //         await _firestore.collection('users').doc(user.uid).update({
+  //           'emailVerified': true, // E-posta doğrulama durumunu güncelle
+  //           'verificationCode': FieldValue.delete(), // Kodun silinmesi
+  //         });
+  //         emit(Authenticated(newUser: true, newStylest: false));
+  //       } else {
+  //         emit(AuthFailure('Invalid verification code'));
+  //       }
+  //     } else {
+  //       emit(AuthFailure('User not found'));
+  //     }
+  //   } catch (e) {
+  //     emit(AuthFailure(e.toString()));
+  //   }
+  // }
+
+  Future<void> _onAuthPhotoUploaded(
+    AuthPhotoUploaded event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      User? user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        Reference ref =
+            _storage.ref().child('user_photos').child(user.uid + '.jpg');
+        await ref.putFile(File(event.photoUrl));
+        String downloadUrl = await ref.getDownloadURL();
+
+        await _firestore.collection('users').doc(user.uid).update({
+          'photoUrl': downloadUrl,
+          'new_user': false, // Fotoğraf yüklendikten sonra false
+        });
+
+        emit(Authenticated(newUser: false, newStylest: false));
+      } else {
+        emit(AuthFailure('Photo upload failed'));
+      }
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onGoogleSignInEvent(
+    GoogleSignInEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
+      User? user = userCredential.user;
+
+      if (user != null) {
+        DocumentSnapshot userDoc =
+            await _firestore.collection('users').doc(user.uid).get();
+
+        if (!userDoc.exists) {
+          await _firestore.collection('users').doc(user.uid).set({
+            'displayName': user.displayName ?? '',
+            'uid': user.uid,
+            'username': user.uid,
+            'profilePhoto': user.photoURL ?? '',
+            'phoneNumber': user.phoneNumber ?? '',
+            'educationLevel': '',
+            'address': '',
+            'followers': 0,
+            'following': 0,
+            'fcmToken': '',
+            'email': user.email ?? '',
+            'aiChats': [],
+            'emailVerified': user.emailVerified,
+            'new_user': true,
+            'userType': 'kullanici',
+            'updatedUser': DateTime.now(),
+            'createdAt': DateTime.now(),
+          });
+        }
+
+        emit(Authenticated(newUser: true, newStylest: false));
+      } else {
+        emit(AuthFailure('Google sign-in failed'));
+      }
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onUploadFileEvent(
+    UploadFileEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      User? user = _firebaseAuth.currentUser;
+      if (user != null) {
+        Reference ref = _storage
+            .ref()
+            .child('user_files')
+            .child(user.uid + '/' + event.file.path.split('/').last);
+        await ref.putFile(event.file);
+        String downloadUrl = await ref.getDownloadURL();
+
+        emit(AuthFileUploadSuccess(downloadUrl));
+      } else {
+        emit(AuthFileUploadFailure('User not authenticated'));
+      }
+    } catch (e) {
+      emit(AuthFileUploadFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onUpdateUserInformation(
+    UpdateUserInformation event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      User? user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        await _firestore.collection('users').doc(user.uid).update({
+          'fileUrl': event.fileUrl,
+        });
+
+        emit(AuthUpdateSuccess());
+      } else {
+        emit(AuthUpdateFailure('User not authenticated'));
+      }
+    } catch (e) {
+      emit(AuthUpdateFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onLogoutEvent(
+    LogoutEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      await _firebaseAuth.signOut();
+      await _googleSignIn.signOut();
+
+      emit(Unauthenticated());
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
   }
 }

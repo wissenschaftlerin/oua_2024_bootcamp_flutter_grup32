@@ -1,10 +1,15 @@
 import 'dart:async';
-
 import 'package:fit4try/bloc/auth/auth_bloc.dart';
+import 'package:fit4try/bloc/auth/auth_event.dart';
 import 'package:fit4try/constants/fonts.dart';
+import 'package:fit4try/constants/style.dart';
+import 'package:fit4try/screens/user/home.dart';
 import 'package:fit4try/widgets/buttons.dart';
+import 'package:fit4try/widgets/flash_message.dart';
+import 'package:fit4try/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpUser extends StatefulWidget {
   const SignUpUser({Key? key}) : super(key: key);
@@ -18,27 +23,20 @@ class _SignUpUserState extends State<SignUpUser> {
   int _currentStep = 0;
   final List<TextEditingController> _controllers =
       List.generate(5, (_) => TextEditingController());
-  bool _isPasswordVisible = false;
-  bool _isNextButtonEnabled = false;
-
   late StreamController<bool> _buttonStateController;
-
+  final AuthBloc _authBloc = AuthBloc();
   Map<int, Color> _stepColors = {
-    0: AppColors.primaryColor1,
-    1: AppColors.primaryColor2,
-    2: AppColors.primaryColor3,
-    3: AppColors.primaryColor4,
-    4: AppColors.primaryColor5,
+    // 0: AppColors.primaryColor1,
+    0: AppColors.primaryColor2,
+    1: AppColors.primaryColor3,
+    2: AppColors.primaryColor4,
+    3: AppColors.primaryColor5,
   };
 
   @override
   void initState() {
     super.initState();
-
-    // Initialize StreamController
     _buttonStateController = StreamController<bool>.broadcast();
-
-    // Listen to changes in text fields
     for (var controller in _controllers) {
       controller.addListener(_updateNextButtonState);
     }
@@ -46,7 +44,7 @@ class _SignUpUserState extends State<SignUpUser> {
 
   @override
   void dispose() {
-    _buttonStateController.close(); // Close the stream controller
+    _buttonStateController.close();
     for (var controller in _controllers) {
       controller.removeListener(_updateNextButtonState);
       controller.dispose();
@@ -55,29 +53,65 @@ class _SignUpUserState extends State<SignUpUser> {
   }
 
   void _updateNextButtonState() {
-    bool isFilled = _areAllFieldsFilled();
-    _buttonStateController.add(isFilled); // Notify stream of state change
-    setState(() {
-      _isNextButtonEnabled = isFilled;
-    });
+    bool isFilled = _controllers[_currentStep].text.isNotEmpty;
+    _buttonStateController.add(isFilled);
   }
 
   void _nextPage() {
     if (_currentStep < 4) {
       if (_currentStep == 0) {
-        // Perform the user info submission before going to the next page
-        submitUserInfo(context);
+        try {
+          if (_controllers[3] != _controllers[4]) {
+            print("sayfa 1 in next geçmeden hali");
+            _authBloc.add(AuthUserInfoSubmitted(
+              _controllers[0].text,
+              _controllers[1].text,
+              _controllers[2].text,
+              _controllers[3].text, "",
+              0, // methodsType değişkenini burada belirleyin
+            ));
+            print("tamamlandı");
+            setState(() {
+              _currentStep++;
+            });
+            _pageController.nextPage(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeIn,
+            );
+          } else {
+            showErrorSnackBar(context, "Şifreler eşleşmiyor");
+          }
+        } catch (e) {
+          print("hata var");
+        }
       } else if (_currentStep == 1) {
-        // Send verification code
-        sendVerificationCode();
+        print("asdasd");
+        _authBloc.add(AuthUserInfoSubmitted(
+          _controllers[0].text,
+          _controllers[1].text,
+          _controllers[2].text,
+          _controllers[3].text, "",
+          0, // methodsType değişkenini burada belirleyin
+        ));
+        print("tamamlandı");
+        setState(() {
+          _currentStep++;
+        });
+        _pageController.nextPage(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+      } else if (_currentStep == 2) {
+        setState(() {
+          _currentStep++;
+        });
+      } else if (_currentStep == 3) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Home()));
       }
       setState(() {
         _currentStep++;
       });
-      _pageController.nextPage(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
     }
   }
 
@@ -93,75 +127,10 @@ class _SignUpUserState extends State<SignUpUser> {
     }
   }
 
-  bool _areAllFieldsFilled() {
-    return _controllers.every((controller) => controller.text.isNotEmpty);
-  }
-
-  void submitUserInfo(BuildContext context) {
-    print(_controllers[0].text);
-    print(_controllers[1].text);
-    print(_controllers[2].text);
-    print(_controllers[3].text);
-    print(_controllers[4].text);
-    final authBloc = context.read<AuthBloc>;
-
-    print("User information submitted.");
-  }
-
-  void sendVerificationCode() {
-    // E-posta doğrulama kodu gönderme kodu buraya gelecek.
-    print("Verification code sent.");
-  }
-
-  Future<void> pickImageFromGallery() async {
-    // Galeriden resim seçme kodu buraya gelecek.
-    print("Image picked from gallery.");
-  }
-
-  Future<void> takePhoto() async {
-    // Kameradan fotoğraf çekme kodu buraya gelecek.
-    print("Photo taken.");
-  }
-
-  Widget _buildStepContent(int step) {
-    switch (step) {
-      case 0:
-        return UserInfoStep(
-          controllers: _controllers,
-          isPasswordVisible: _isPasswordVisible,
-          togglePasswordVisibility: _togglePasswordVisibility,
-        );
-      case 1:
-        return VerificationStep(
-          controllers: _controllers,
-        );
-      case 2:
-        return PhotoUploadStep(
-          pickImageFromGallery: pickImageFromGallery,
-          takePhoto: takePhoto,
-        );
-      case 3:
-        return PlaceholderStep(
-          color: _stepColors[3]!,
-          text: 'Step 4', // Replace with actual step content
-        );
-      case 4:
-        return WelcomeStep();
-      default:
-        return Container();
-    }
-  }
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _isPasswordVisible = !_isPasswordVisible;
-    });
-  }
-
   Widget _buildProgressBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(5, (index) {
+      children: List.generate(4, (index) {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: 4.0),
           width: 40.0,
@@ -177,76 +146,146 @@ class _SignUpUserState extends State<SignUpUser> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(height: 75),
-          _buildProgressBar(),
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return _buildStepContent(index);
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (_currentStep > 0)
-                  ElevatedButton(
-                    onPressed: _previousPage,
-                    child: Text('Geri'),
-                  ),
-                StreamBuilder<bool>(
-                  stream: _buttonStateController.stream,
-                  initialData: _isNextButtonEnabled,
-                  builder: (context, snapshot) {
-                    return MyButton(
-                        text: "İleri",
-                        borderRadius: BorderRadius.circular(16),
-                        buttonColor: Colors.black,
-                        buttonTextColor: AppColors.backgroundColor1,
-                        buttonTextSize: 20,
-                        buttonTextWeight: FontWeight.normal,
-                        onPressed: snapshot.data ?? false ? _nextPage : () {},
-                        buttonWidth: ButtonWidth.xLarge);
-                    // ElevatedButton(
-                    //   onPressed: snapshot.data ?? false ? _nextPage : null,
-                    //   style: ButtonStyle(
-                    //     backgroundColor:
+    return BlocProvider(
+      create: (context) => _authBloc,
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundColor1,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: 75),
+            _buildProgressBar(),
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  switch (index) {
+                    case 0:
+                      return UserInfoStep(
+                          nameController: _controllers[0],
+                          usernameController: _controllers[1],
+                          emailController: _controllers[2],
+                          passwordController: _controllers[3],
+                          passwordControlleragain: _controllers[4]
+                          // onNext: () async {
+                          //   try {
+                          //     // print("asdasd");
+                          //     // _authBloc.add(AuthUserInfoSubmitted(
+                          //     //   _controllers[0].text,
+                          //     //   _controllers[1].text,
+                          //     //   _controllers[2].text,
+                          //     //   _controllers[3].text,
+                          //     //   0, // methodsType değişkenini burada belirleyin
+                          //     // ));
+                          //     // print("tamamlandı");
+                          //     // _nextPage();
+                          //   } catch (e) {
+                          //     print("$e");
+                          //   }
+                          // },
+                          );
+                    case 1:
+                      return VerificationStep(
+                        verificationController: _controllers[4],
+                        // onNext: () {
+                        //   // _authBloc.add(AuthVerificationCodeSubmitted(
+                        //   //     _controllers[4].text));
+                        //   // _nextPage();
+                        // },
+                      );
+                    case 2:
+                      return PhotoUploadStep(
+                        onNext: (photoUrl) {
+                          _authBloc.add(AuthPhotoUploaded(photoUrl));
+                          _nextPage();
+                        },
+                      );
 
-                    //   ),
-                    //   child: Text('İleri'),
-                    // );
-                  },
-                ),
-              ],
+                    case 3:
+                      return WelcomeStep(onNext: _nextPage);
+                    default:
+                      return Container();
+                  }
+                },
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (_currentStep > 0)
+                    MyButton(
+                      text: "Geri",
+                      buttonColor: AppColors.secondaryColor2,
+                      buttonTextColor: Colors.white,
+                      buttonTextSize: 15,
+                      buttonTextWeight: FontWeight.normal,
+                      borderRadius: BorderRadius.circular(16),
+                      onPressed: _previousPage,
+                      buttonWidth: ButtonWidth.small,
+                    ),
+                  StreamBuilder<bool>(
+                    stream: _buttonStateController.stream,
+                    initialData: false,
+                    builder: (context, snapshot) {
+                      return MyButton(
+                          text: "İleri",
+                          buttonColor: AppColors.primaryColor2,
+                          buttonTextColor: Colors.white,
+                          buttonTextSize: 20,
+                          buttonTextWeight: FontWeight.normal,
+                          borderRadius: BorderRadius.circular(16),
+                          onPressed: snapshot.data! ? _nextPage : () {},
+                          buttonWidth: ButtonWidth.large);
+                      // ElevatedButton(
+                      //   onPressed: snapshot.data! ? _nextPage : null,
+                      //   child: Text('İleri'),
+                      // );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
 }
 
-class UserInfoStep extends StatelessWidget {
-  final List<TextEditingController> controllers;
-  final bool isPasswordVisible;
-  final VoidCallback togglePasswordVisibility;
+class UserInfoStep extends StatefulWidget {
+  final TextEditingController nameController;
+  final TextEditingController usernameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController passwordControlleragain;
+  // final VoidCallback onNext;
 
   UserInfoStep({
-    required this.controllers,
-    required this.isPasswordVisible,
-    required this.togglePasswordVisibility,
+    required this.nameController,
+    required this.usernameController,
+    required this.emailController,
+    required this.passwordController,
+    required this.passwordControlleragain,
+    // required this.onNext,
   });
+
+  @override
+  _UserInfoStepState createState() => _UserInfoStepState();
+}
+
+class _UserInfoStepState extends State<UserInfoStep> {
+  bool _isPasswordVisible = false;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -264,68 +303,56 @@ class UserInfoStep extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            TextField(
-              controller: controllers[0],
-              decoration: InputDecoration(
-                labelText: 'İsim Soyisim',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
+            MyTextField(
+                controller: widget.nameController,
+                hintText: 'İsim Soyisim',
+                obscureText: false,
+                showBorder: true,
+                keyboardType: TextInputType.multiline,
+                enabled: true),
+            SizedBox(height: 16),
+            MyTextField(
+                controller: widget.usernameController,
+                hintText: 'Kullanıcı Adı',
+                obscureText: false,
+                showBorder: true,
+                keyboardType: TextInputType.multiline,
+                enabled: true),
+            SizedBox(height: 16),
+            MyTextField(
+                controller: widget.emailController,
+                hintText: 'Email',
+                obscureText: false,
+                showBorder: true,
+                keyboardType: TextInputType.emailAddress,
+                enabled: true),
+            SizedBox(height: 16),
+            MyTextField(
+              controller: widget.passwordController,
+              hintText: "Şifre",
+              obscureText: _isPasswordVisible ? true : false,
+              keyboardType: TextInputType.text,
+              enabled: true,
+              showBorder: true,
+              onTap: _togglePasswordVisibility,
+              maxLines: 1,
+              suffixIcon: Icon(
+                !_isPasswordVisible ? Icons.visibility : Icons.visibility_off,
               ),
             ),
             SizedBox(height: 16),
-            TextField(
-              controller: controllers[1],
-              decoration: InputDecoration(
-                labelText: 'Kullanıcı Adı',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
+            MyTextField(
+              controller: widget.passwordControlleragain,
+              hintText: "Şifre Tekrar",
+              obscureText: _isPasswordVisible ? true : false,
+              keyboardType: TextInputType.text,
+              enabled: true,
+              showBorder: true,
+              onTap: _togglePasswordVisibility,
+              maxLines: 1,
+              suffixIcon: Icon(
+                !_isPasswordVisible ? Icons.visibility : Icons.visibility_off,
               ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: controllers[2],
-              decoration: InputDecoration(
-                labelText: 'E-mail Adresi',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: controllers[3],
-              decoration: InputDecoration(
-                labelText: 'Şifre',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                  ),
-                  onPressed: togglePasswordVisibility,
-                ),
-              ),
-              obscureText: !isPasswordVisible,
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: controllers[4],
-              decoration: InputDecoration(
-                labelText: 'Şifre Tekrar',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                  ),
-                  onPressed: togglePasswordVisibility,
-                ),
-              ),
-              obscureText: !isPasswordVisible,
             ),
           ],
         ),
@@ -335,20 +362,25 @@ class UserInfoStep extends StatelessWidget {
 }
 
 class VerificationStep extends StatelessWidget {
-  final List<TextEditingController> controllers;
+  final TextEditingController verificationController;
+  // final VoidCallback onNext;
 
-  VerificationStep({required this.controllers});
+  VerificationStep({
+    required this.verificationController,
+    // required this.onNext,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'E-posta Doğrulama 📧',
+              'Mailini Kontrol Et 📩',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -356,19 +388,13 @@ class VerificationStep extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Lütfen e-posta adresinize gönderilen doğrulama kodunu girin.',
-              textAlign: TextAlign.center,
-            ),
+                "Doğrulama kodunu e-posta adresinize gönderdik. Lütfen e-postanızı kontrol edin ve e-postanızı doğrulamayı unutmayınız",
+                style: fontStyle(15, Colors.black, FontWeight.normal)),
             SizedBox(height: 16),
-            TextField(
-              controller: controllers[2],
-              decoration: InputDecoration(
-                labelText: 'Doğrulama Kodu',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-              ),
-            ),
+            // ElevatedButton(
+            //   onPressed: onNext,
+            //   child: Text('İleri'),
+            // ),
           ],
         ),
       ),
@@ -377,39 +403,64 @@ class VerificationStep extends StatelessWidget {
 }
 
 class PhotoUploadStep extends StatelessWidget {
-  final VoidCallback pickImageFromGallery;
-  final VoidCallback takePhoto;
+  final ValueChanged<String> onNext;
 
-  PhotoUploadStep({
-    required this.pickImageFromGallery,
-    required this.takePhoto,
-  });
+  PhotoUploadStep({required this.onNext});
+
+  Future<void> _selectPhoto(ImageSource source) async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: source);
+
+    if (image != null) {
+      String photoUrl = image.path;
+
+      onNext(photoUrl);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Fotoğraf Yükle 📷',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
+              "Seni görmek harika! 💜",
+              style: fontStyle(28, Colors.black, FontWeight.bold),
+              textAlign: TextAlign.left,
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Buralar alev aldı. Seni görmek bir harika aramıza katılmana çok az kaldı. Hadi hemen fotoğrafını yükle ve aramıza katıl.",
+              style: fontStyle(15, Colors.black, FontWeight.normal),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            MyButton(
+                text: "Galeriden Seç",
+                buttonColor: AppColors.primaryColor3,
+                buttonTextColor: Colors.white,
+                buttonTextSize: 20,
+                borderRadius: BorderRadius.circular(16),
+                buttonTextWeight: FontWeight.normal,
+                onPressed: () => _selectPhoto(ImageSource.gallery),
+                buttonWidth: ButtonWidth.large),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: pickImageFromGallery,
-              child: Text('Galeriden Seç'),
-            ),
+            MyButton(
+                text: "Fotoğraf Çek",
+                borderRadius: BorderRadius.circular(16),
+                buttonColor: AppColors.primaryColor3,
+                buttonTextColor: Colors.white,
+                buttonTextSize: 20,
+                buttonTextWeight: FontWeight.normal,
+                onPressed: () => _selectPhoto(ImageSource.camera),
+                buttonWidth: ButtonWidth.large),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: takePhoto,
-              child: Text('Kamera ile Çek'),
-            ),
           ],
         ),
       ),
@@ -418,6 +469,10 @@ class PhotoUploadStep extends StatelessWidget {
 }
 
 class WelcomeStep extends StatelessWidget {
+  final VoidCallback onNext;
+
+  WelcomeStep({required this.onNext});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -425,39 +480,21 @@ class WelcomeStep extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Hoş Geldiniz 🎉',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
+            'Aramıza Hoş Geldin 🎉',
+            style: fontStyle(28, Colors.black, FontWeight.bold),
           ),
-          SizedBox(height: 16),
-          // Konfeti efekti buraya eklenecek.
-          Text(
-            'Tebrikler! Kaydınız başarıyla tamamlandı.',
-            textAlign: TextAlign.center,
+          SizedBox(
+            height: 30,
+          ),
+          Image.asset('assets/images/confetti.png'),
+          SizedBox(
+            height: 30,
+          ),
+          ElevatedButton(
+            onPressed: onNext,
+            child: Text('Başla'),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class PlaceholderStep extends StatelessWidget {
-  final Color color;
-  final String text;
-
-  const PlaceholderStep({required this.color, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: color,
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 24, color: Colors.white),
-        ),
       ),
     );
   }

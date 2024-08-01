@@ -1,3 +1,4 @@
+import 'package:fit4try/constants/fonts.dart';
 import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
@@ -14,6 +15,9 @@ class MyTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged; // onChanged added
   final bool enabled;
   final int? maxLines;
+  final bool showBorder; // Optional border display
+  final Color borderColor; // Optional border color
+  final double borderWidth; // Optional border width
 
   // Constructor with named parameters and required annotation where necessary
   const MyTextField({
@@ -31,6 +35,9 @@ class MyTextField extends StatelessWidget {
     this.onChanged,
     required this.enabled,
     this.maxLines,
+    this.showBorder = false, // Default to false
+    this.borderColor = Colors.black, // Default to black
+    this.borderWidth = 1.0, // Default border width
   }); // key parameter passed to super constructor
 
   @override
@@ -51,14 +58,13 @@ class MyTextField extends StatelessWidget {
         prefixIcon: prefixIcon,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.transparent),
+          borderSide: BorderSide(color: borderColor, width: borderWidth),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide:
-              BorderSide(color: Theme.of(context).colorScheme.secondary),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: borderColor, width: borderWidth),
+          borderRadius: BorderRadius.circular(16),
         ),
-        fillColor: Colors.grey.shade200,
+        fillColor: AppColors.backgroundColor1,
         filled: true,
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey[500]),

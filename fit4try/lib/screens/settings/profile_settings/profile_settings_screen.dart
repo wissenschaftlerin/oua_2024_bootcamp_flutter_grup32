@@ -5,7 +5,7 @@ import 'package:fit4try/screens/settings/profile_settings/name_changed/name_chan
 import 'package:fit4try/screens/user/ai_screen.dart';
 import 'package:fit4try/screens/user/community_screen.dart';
 import 'package:fit4try/screens/user/guard_screen.dart';
-import 'package:fit4try/screens/user/home_screen.dart';
+import 'package:fit4try/screens/user/home_page_screen.dart';
 import 'package:fit4try/screens/user/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -21,7 +21,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   String? profilePhotoUrl = 'assets/images/placeholder_profile.jpg';
 
   final List<Widget> pages = [
-    HomeScreen(),
+    HomeTab(),
     CommunityScreen(),
     GuardScreen(),
     AiScreen(),

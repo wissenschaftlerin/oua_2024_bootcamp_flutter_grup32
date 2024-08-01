@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthState extends Equatable {
   const AuthState();
@@ -13,24 +12,58 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class Authenticated extends AuthState {
-  final User user;
   final bool newUser;
   final bool newStylest;
 
-  Authenticated(
-      {required this.user, required this.newUser, required this.newStylest});
+  const Authenticated({required this.newUser, required this.newStylest});
 
   @override
-  List<Object> get props => [user, newUser, newStylest];
+  List<Object> get props => [newUser, newStylest];
 }
 
 class Unauthenticated extends AuthState {}
 
-class AuthError extends AuthState {
-  final String message;
+class AuthFailure extends AuthState {
+  final String error;
 
-  AuthError({required this.message});
+  const AuthFailure(this.error);
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [error];
+}
+
+class AuthSignedIn extends AuthState {}
+
+class AuthError extends AuthState {
+  final String errorMessage;
+  AuthError({required this.errorMessage});
+}
+
+class AuthFileUploadSuccess extends AuthState {
+  final String fileUrl;
+
+  AuthFileUploadSuccess(this.fileUrl);
+
+  @override
+  List<Object> get props => [fileUrl];
+}
+
+class AuthFileUploadFailure extends AuthState {
+  final String error;
+
+  AuthFileUploadFailure(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
+class AuthUpdateSuccess extends AuthState {}
+
+class AuthUpdateFailure extends AuthState {
+  final String error;
+
+  AuthUpdateFailure(this.error);
+
+  @override
+  List<Object> get props => [error];
 }
