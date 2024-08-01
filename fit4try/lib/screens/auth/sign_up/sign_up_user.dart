@@ -101,10 +101,17 @@ class _SignUpUserState extends State<SignUpUser> {
           duration: Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );
+      } else if (_currentStep == 2) {
+        setState(() {
+          _currentStep++;
+        });
       } else if (_currentStep == 3) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Home()));
       }
+      setState(() {
+        _currentStep++;
+      });
     }
   }
 

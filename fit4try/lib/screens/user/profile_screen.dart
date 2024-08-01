@@ -4,6 +4,7 @@ import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/constants/style.dart';
 import 'package:fit4try/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -143,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                      padding: EdgeInsets.all(3),
+                      padding: EdgeInsets.all(4),
                       decoration: BoxDecoration(
                           border: Border.all(width: 1),
                           borderRadius: BorderRadius.circular(16)),
@@ -152,9 +153,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                     width: 5,
                   ),
                   Container(
-                    padding: EdgeInsets.all(3),
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        color: AppColors.primaryColor2,
+                        color: AppColors.primaryColor1,
                         borderRadius: BorderRadius.circular(16)),
                     child: Icon(
                       Icons.facebook,
@@ -165,12 +166,12 @@ class _ProfileScreenState extends State<ProfileScreen>
                     width: 5,
                   ),
                   Container(
-                    padding: EdgeInsets.all(3),
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        color: AppColors.primaryColor2,
+                        color: AppColors.primaryColor1,
                         borderRadius: BorderRadius.circular(16)),
-                    child: Icon(
-                      Icons.facebook,
+                    child: FaIcon(
+                      FontAwesomeIcons.twitter,
                       color: AppColors.primaryColor5,
                     ),
                   ),
@@ -178,12 +179,12 @@ class _ProfileScreenState extends State<ProfileScreen>
                     width: 5,
                   ),
                   Container(
-                    padding: EdgeInsets.all(3),
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        color: AppColors.primaryColor2,
+                        color: AppColors.primaryColor1,
                         borderRadius: BorderRadius.circular(16)),
-                    child: Icon(
-                      Icons.facebook,
+                    child: FaIcon(
+                      FontAwesomeIcons.instagram,
                       color: AppColors.primaryColor5,
                     ),
                   ),
@@ -191,12 +192,12 @@ class _ProfileScreenState extends State<ProfileScreen>
                     width: 5,
                   ),
                   Container(
-                    padding: EdgeInsets.all(3),
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        color: AppColors.primaryColor2,
+                        color: AppColors.primaryColor1,
                         borderRadius: BorderRadius.circular(16)),
-                    child: Icon(
-                      Icons.facebook,
+                    child: FaIcon(
+                      FontAwesomeIcons.linkedin,
                       color: AppColors.primaryColor5,
                     ),
                   ),

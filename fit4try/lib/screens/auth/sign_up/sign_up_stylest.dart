@@ -109,9 +109,17 @@ class _SignUpStylestState extends State<SignUpStylest> {
           duration: Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );
+      } else if (_currentStep == 2) {
+        setState(() {
+          _currentStep++;
+        });
       } else if (_currentStep == 3) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Home()));
+      } else if (_currentStep == 4) {
+        setState(() {
+          _currentStep++;
+        });
       }
     }
   }

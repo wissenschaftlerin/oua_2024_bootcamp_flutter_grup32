@@ -17,98 +17,116 @@ import 'package:image_picker/image_picker.dart';
 //anasayfanın görüntüsü
 
 class HomeTab extends StatelessWidget {
-  String getGreeting() {
-    var hour = DateTime.now().hour;
-    if (hour < 12) {
-      return 'Günaydın';
-    } else if (hour < 18) {
-      return 'İyi günler';
-    } else {
-      return 'İyi akşamlar';
+  Future<String> getDisplayName() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection(
+              'users') // Adjust this path if your collection name is different
+          .doc(user.uid)
+          .get();
+
+      if (userDoc.exists) {
+        return userDoc.get('displayName') ?? 'Ege'; // Default name if not found
+      }
     }
+    return 'Ege'; // Default name if no user is logged in
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.backgroundColor1,
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                top: 60), // Ekranın üst kısmında 30 birim boşluk bırakır
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 18.0), // Kenarlardan 20 birim uzaklaştırır
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text.rich(
-                    TextSpan(
-                      children: [
+    return FutureBuilder<String>(
+      future: getDisplayName(),
+      builder: (context, snapshot) {
+        String greeting = 'Ege'; // Default name
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
+            greeting = snapshot.data!;
+          } else {
+            // Handle the case where no display name is returned
+            greeting = 'Ege';
+          }
+        }
+
+        return Container(
+          color: AppColors.backgroundColor1,
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 60),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text.rich(
                         TextSpan(
-                          text: 'Selam ',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          children: [
+                            TextSpan(
+                              text: 'Selam ',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: greeting,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.purple,
+                              ),
+                            ),
+                            TextSpan(
+                              text: ',\nBugün harika gözüküyorsun!',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                        TextSpan(
-                          text: 'Ege',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple, // Mor renk
-                          ),
-                        ),
-                        TextSpan(
-                          text: ',\nBugün harika gözüküyorsun!',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 15),
+                      SearchBar(),
+                    ],
                   ),
-                  SizedBox(height: 15),
-                  SearchBar(),
-                ],
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('posts')
-                  .orderBy('createdAt', descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('posts')
+                      .orderBy('createdAt', descending: true)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
 
-                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(child: Text('No posts available'));
-                }
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return Center(child: Text('No posts available'));
+                    }
 
-                final posts = snapshot.data!.docs.map((doc) {
-                  return DiscoverPost.fromMap(
-                      doc.data() as Map<String, dynamic>);
-                }).toList();
+                    final posts = snapshot.data!.docs.map((doc) {
+                      return DiscoverPost.fromMap(
+                          doc.data() as Map<String, dynamic>);
+                    }).toList();
 
-                return ListView.builder(
-                  padding: EdgeInsets.zero, // Extra padding kaldırılır
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    return PostWidget(post: posts[index]);
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: posts.length,
+                      itemBuilder: (context, index) {
+                        return PostWidget(post: posts[index]);
+                      },
+                    );
                   },
-                );
-              },
-            ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -214,9 +232,15 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
       allUsers = userDocs.map((doc) {
         return {
           'uid': doc.id, // Store the uid of the user
-          'name': doc['displayName'] ?? 'No Name',
-          'username': doc['username'] ?? 'No Username',
-          'image': doc['photoUrl'] ?? 'assets/images/placeholder_profile.jpg',
+          'name': doc.data().containsKey('displayName')
+              ? doc['displayName']
+              : 'No Name',
+          'username': doc.data().containsKey('username')
+              ? doc['username']
+              : 'No Username',
+          'image': doc.data().containsKey('photoUrl')
+              ? doc['photoUrl']
+              : 'assets/images/placeholder_profile.jpg',
         };
       }).toList();
       displayedUsers =

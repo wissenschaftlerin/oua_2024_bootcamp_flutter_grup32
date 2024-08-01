@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/screens/user/ai_screen.dart';
 import 'package:fit4try/screens/user/community_screen.dart';
 import 'package:fit4try/screens/user/guard_screen.dart';
 import 'package:fit4try/screens/user/home_page_screen.dart';
 import 'package:fit4try/screens/user/profile_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -29,6 +30,7 @@ class MyHomePagess extends StatefulWidget {
 
 class _MyHomePageStatess extends State<MyHomePagess> {
   late int _currentIndex;
+  String? profilePhotoUrl;
 
   final List<Widget> _pages = [
     HomeTab(),
@@ -38,14 +40,31 @@ class _MyHomePageStatess extends State<MyHomePagess> {
     ProfileScreen(),
   ];
 
-  String? profilePhotoUrl;
-
   @override
   void initState() {
     super.initState();
-    _currentIndex = widget.initialIndex; // Use the initialIndex
-    profilePhotoUrl =
-        'assets/images/placeholder_profile.jpg'; // Change this to null to simulate no profile photo
+    _currentIndex = widget.initialIndex;
+    _fetchProfilePhotoUrl();
+  }
+
+  Future<void> _fetchProfilePhotoUrl() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        if (userDoc.exists) {
+          setState(() {
+            profilePhotoUrl = userDoc.get('photoUrl');
+          });
+        }
+      }
+    } catch (e) {
+      print('Error fetching profile photo URL: $e');
+    }
   }
 
   @override
@@ -65,7 +84,9 @@ class _MyHomePageStatess extends State<MyHomePagess> {
         items: [
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icon/home2.png',
+              _currentIndex == 0
+                  ? 'assets/icon/home2.png' // Selected icon
+                  : 'assets/icon/home.png', // Unselected icon
               width: 36,
               height: 36,
             ),
@@ -73,7 +94,9 @@ class _MyHomePageStatess extends State<MyHomePagess> {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icon/community.png',
+              _currentIndex == 1
+                  ? 'assets/icon/community2.png' // Selected icon
+                  : 'assets/icon/community.png', // Unselected icon
               width: 36,
               height: 36,
             ),
@@ -81,7 +104,9 @@ class _MyHomePageStatess extends State<MyHomePagess> {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icon/picture.png',
+              _currentIndex == 2
+                  ? 'assets/icon/picture.png' // Selected icon
+                  : 'assets/icon/picture.png', // Unselected icon
               width: 36,
               height: 36,
             ),
@@ -89,7 +114,9 @@ class _MyHomePageStatess extends State<MyHomePagess> {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icon/aı.png',
+              _currentIndex == 3
+                  ? 'assets/icon/yıldız2.png' // Selected icon
+                  : 'assets/icon/yıldız.png', // Unselected icon
               width: 36,
               height: 36,
             ),
@@ -98,7 +125,10 @@ class _MyHomePageStatess extends State<MyHomePagess> {
           BottomNavigationBarItem(
             icon: CircleAvatar(
               radius: 12,
-              backgroundImage: AssetImage('assets/icon/foto.png'),
+              backgroundImage: profilePhotoUrl != null
+                  ? NetworkImage(profilePhotoUrl!)
+                  : AssetImage('assets/images/placeholder_profile.jpg')
+                      as ImageProvider,
             ),
             label: '',
           ),

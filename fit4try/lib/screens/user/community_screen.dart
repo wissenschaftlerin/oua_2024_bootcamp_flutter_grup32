@@ -1,10 +1,47 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/screens/user/messages_screen.dart';
 import 'package:fit4try/screens/user/message_screen.dart';
 import 'package:fit4try/screens/user/notifications_screen.dart';
 import 'package:flutter/material.dart';
 
-class CommunityScreen extends StatelessWidget {
+class CommunityScreen extends StatefulWidget {
+  @override
+  _CommunityScreenState createState() => _CommunityScreenState();
+}
+
+class _CommunityScreenState extends State<CommunityScreen> {
+  String? _profilePhotoUrl;
+  String _displayName = 'User';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserProfile();
+  }
+
+  Future<void> _fetchUserProfile() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        if (userDoc.exists) {
+          setState(() {
+            _profilePhotoUrl = userDoc.get('photoUrl');
+            _displayName = userDoc.get('displayName') ?? 'User';
+          });
+        }
+      }
+    } catch (e) {
+      print('Error fetching user profile: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,10 +49,12 @@ class CommunityScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: CircleAvatar(
-          backgroundImage: AssetImage('assets/icon/foto.png'),
+          backgroundImage: _profilePhotoUrl != null
+              ? NetworkImage(_profilePhotoUrl!)
+              : AssetImage('assets/icon/foto.png') as ImageProvider,
         ),
         title: Text(
-          'ege.yildirimm',
+          _displayName,
           style: TextStyle(color: Colors.black),
         ),
         actions: [
@@ -42,8 +81,8 @@ class CommunityScreen extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Colors.grey[100],
-      body: StreamBuilder(
+      backgroundColor: AppColors.backgroundColor1,
+      body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('community_posts')
             .snapshots(),
