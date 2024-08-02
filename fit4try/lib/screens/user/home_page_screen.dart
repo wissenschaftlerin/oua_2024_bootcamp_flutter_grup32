@@ -12,6 +12,7 @@ import 'package:fit4try/screens/user/notifications_screen.dart';
 import 'package:fit4try/widgets/buttons.dart';
 import 'package:fit4try/widgets/flash_message.dart';
 import 'package:fit4try/widgets/home_post.dart';
+import 'package:fit4try/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 //anasayfanın görüntüsü
@@ -101,7 +102,7 @@ class HomeTab extends StatelessWidget {
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: LoadingWidget());
                     }
 
                     if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -676,7 +677,7 @@ class _StylistSelectionSheetState extends State<StylistSelectionSheet> {
                   FirebaseFirestore.instance.collection('users').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: LoadingWidget());
                 }
                 final users = snapshot.data!.docs;
                 final filteredStylists = users.where((user) {

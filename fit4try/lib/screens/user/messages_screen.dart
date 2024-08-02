@@ -3,6 +3,7 @@ import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/screens/user/guest_user_screen.dart';
 import 'package:fit4try/screens/user/home.dart';
 import 'package:fit4try/screens/user/message_screen.dart';
+import 'package:fit4try/widgets/loading.dart';
 import 'package:flutter/material.dart';
 
 class MessagesScreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
         stream: FirebaseFirestore.instance.collection('chats').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: LoadingWidget());
           }
 
           return ListView(

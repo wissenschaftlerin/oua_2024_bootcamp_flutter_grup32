@@ -12,6 +12,7 @@ import 'package:fit4try/screens/auth/intro_screen.dart';
 import 'package:fit4try/screens/auth/sign_in/login.dart';
 import 'package:fit4try/screens/auth/styles/styles_screen.dart';
 import 'package:fit4try/screens/user/home.dart';
+import 'package:fit4try/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -212,7 +213,7 @@ class AuthWrapper extends StatelessWidget {
       future: _checkFirstLaunch(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(body: Center(child: CircularProgressIndicator()));
+          return Scaffold(body: Center(child: LoadingWidget()));
         }
 
         if (snapshot.hasData && snapshot.data == true) {
@@ -220,8 +221,7 @@ class AuthWrapper extends StatelessWidget {
             builder: (context, state) {
               print('Current Auth State: ${state}');
               if (state is AuthLoading) {
-                return Scaffold(
-                    body: Center(child: CircularProgressIndicator()));
+                return Scaffold(body: Center(child: LoadingWidget()));
               } else if (state is Authenticated) {
                 if (state.newUser || state.newStylest) {
                   return Home();

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fit4try/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fit4try/constants/fonts.dart';
@@ -115,7 +116,7 @@ class _MessageScreenState extends State<MessageScreen> {
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: LoadingWidget());
                 }
 
                 List<DocumentSnapshot> docs = snapshot.data!.docs;

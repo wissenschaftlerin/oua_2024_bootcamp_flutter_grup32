@@ -4,6 +4,7 @@ import 'package:fit4try/constants/fonts.dart';
 import 'package:fit4try/screens/user/messages_screen.dart';
 import 'package:fit4try/screens/user/message_screen.dart';
 import 'package:fit4try/screens/user/notifications_screen.dart';
+import 'package:fit4try/widgets/loading.dart';
 import 'package:flutter/material.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -88,7 +89,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: LoadingWidget());
           }
 
           return ListView(

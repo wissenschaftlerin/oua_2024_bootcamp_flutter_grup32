@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fit4try/widgets/loading.dart';
 import 'package:flutter/material.dart';
 
 class GuestUserProfileScreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class _GuestUserProfileScreenState extends State<GuestUserProfileScreen> {
         future: userDocument,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: LoadingWidget());
           }
 
           if (!snapshot.hasData || !snapshot.data!.exists) {
