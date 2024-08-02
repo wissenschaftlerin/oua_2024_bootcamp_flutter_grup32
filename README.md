@@ -284,7 +284,8 @@ Whatsapp üzerinden mesajla haberleşerek bu sprint sürecinde hızlı ilerlenmi
 - Kodlamadaki eksiklikler üzerine odaklanılmıştır
 
 ## Sprint Review
-Uygulamadaki eksiklere odaklanılıp hızlıca görev dağılımı yapılmıştır.
+- Uygulamadaki eksiklere odaklanılıp hızlıca görev dağılımı yapılmıştır.
+- Uygulamanın tanıtımı, sunumu, videosu hazırlanmıştır.
 
 </details>
 
