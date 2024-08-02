@@ -228,6 +228,8 @@ Seçilen Logomuz
 ### Uygulama Sunumu Üzerine Çalışılması
 ![WhatsApp Bild 2024-08-02 um 00 57 20_ad0f4588](https://github.com/user-attachments/assets/1ad27150-646e-4ff5-9bb2-253c6d665a67)
 
+[Fit4Try Sunum](https://www.canva.com/design/DAGMgD-1oIg/hzS3UnjDe2GMc_0WR0mhrQ/view?utm_content=DAGMgD-1oIg&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+
 ### Uygulamanın Marvel Üzerinden Prototipi & Sitesi Çalışması
 
 [Marvel Üzerinden Prototip](https://marvelapp.com/prototype/10gb34b4/screen/95220182)
