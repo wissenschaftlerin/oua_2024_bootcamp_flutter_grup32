@@ -204,6 +204,68 @@ UI UX tasarımların kodlamaları yapılmıştır.
 
 **Sprint Tarihleri:** 22 Temmuz - 2 Ağustos
 
+## Yapılan Çalışmalar
+
+### Yapılması Gereken Eksiklerin Belirlenmesi & Görev Dağılımı
+
+Whatsapp üzerinden yazışmalar
+![image](https://github.com/user-attachments/assets/f7c78a44-d702-4442-be0f-524f9740e2de)
+
+### Kodlardaki hataların düzeltilmesi 
+Yeni güncelleştirmelerden ötürü olan bug'ların giderilmesi ve uygulamanın işlevesel hale getirilmesi
+
+### Logo Tasarımının Netleşmesi
+Logo için yapılan çeşitli tasarımlar
+![WhatsApp Bild 2024-07-31 um 12 44 39_72f8297e](https://github.com/user-attachments/assets/faad7f7f-3087-4ca2-804e-bf91f2f993cf)
+
+Seçilen Logomuz
+![image](https://github.com/user-attachments/assets/9d51da0e-df96-426c-86f7-9613fc2f977f)
+
+### Uygulama Sunumu Üzerine Çalışılması
+![WhatsApp Bild 2024-08-02 um 00 57 20_ad0f4588](https://github.com/user-attachments/assets/1ad27150-646e-4ff5-9bb2-253c6d665a67)
+
+### Uygulamanın Marvel Üzerinden Prototipi & Sitesi Çalışması
+
+[Marvel Üzerinden Prototip](https://marvelapp.com/prototype/10gb34b4/screen/95220182)
+
+### Screenshotlar
+
+#### UI Tasarımlar
+
+92'den fazla UI tasarım figma üzerinden yapıldı.
+
+ ![WhatsApp Bild 2024-08-01 um 11 20 37_aa9c9b41](https://github.com/user-attachments/assets/aa3100bb-2c51-4625-b9f6-39846d6d2fb8)
+ ![WhatsApp Bild 2024-08-01 um 11 20 57_6548a171](https://github.com/user-attachments/assets/1068d44a-9218-4be2-ba20-74b39e64f950)
+ ![WhatsApp Bild 2024-08-01 um 11 21 13_66b95afa](https://github.com/user-attachments/assets/e8661e08-65ea-412b-b237-29f7bfc5bce0)
+ ![WhatsApp Bild 2024-08-01 um 11 21 35_1389ef91](https://github.com/user-attachments/assets/868643eb-8519-43a7-a642-94fa9b1213d5)
+ ![WhatsApp Bild 2024-08-01 um 11 22 14_fc655fb7](https://github.com/user-attachments/assets/5a850a83-db9f-437d-9bb6-1c5e81fef0d7)
+ ![WhatsApp Bild 2024-08-01 um 11 22 29_b31bbcbe](https://github.com/user-attachments/assets/f834cd6a-e379-4173-b84e-12639191b969)
+
+
+## Sprint Notları
+
+- User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
+- Sprint içinde tamamlanması tahmin edilen puan: **90 Puan**
+- Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 380 puanlık backlog bulunmaktadır. İlk sprintte tamamlanan 100 puandan sonra, bu sprintte 90 puan tamamlanması hedeflenmiştir.
+- Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.
+- Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task)
+
+Miro Ekran Görüntüsü
+Miro yerine bu hafta süreci hızlandırmak adına sprintler ve takip sürecinde Whatsapp kullanılmıştır.
+![image](https://github.com/user-attachments/assets/e9a2bc0a-346e-48e4-82d2-f923b65f7502)
+
+---
+
+## Daily Scrum 
+Whatsapp üzerinden mesajla haberleşerek bu sprint sürecinde hızlı ilerlenmiştir.
+
+## Sprint Retrospective
+- Uygulamanın logosu ve tasarım UI kısımları bitmiştir.
+- Uygulamanın tanıtım videosuna başlanmış ve hazırlanmıştır.
+- Kodlamadaki eksiklikler üzerine odaklanılmıştır
+
+## Sprint Review
+Uygulamadaki eksiklere odaklanılıp hızlıca görev dağılımı yapılmıştır.
 
 </details>
 
