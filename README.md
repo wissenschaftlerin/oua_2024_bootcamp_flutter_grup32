@@ -1,6 +1,6 @@
 # 📌 FIT4TRY: 2024 Oyun ve Uygulama Akademisi Mezuniyet Bootcamp Uygulama Geliştirme Grup 32 Projesi 📱
-### Proje Adı:  Fit4Try 👗📱
-### Proje Özeti
+### 🎯 Uygulama Adı:  Fit4Try 👗📱
+### ✍🏻 Uygulama Özeti
  Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet önerileri sunan yenilikçi bir mobil uygulamadır. Bu uygulama, kullanıcıların stillerini analiz ederek kişiselleştirilmiş kıyafet önerileri sunmayı hedeflemektedir. Kullanıcı dostu arayüzü ve yapay zeka destekli algoritması sayesinde, kullanıcıların giyim tercihlerine en uygun kombinleri önerir.
 
 ### 🌟 Eşsiz özellikleri
