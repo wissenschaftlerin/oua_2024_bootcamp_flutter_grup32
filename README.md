@@ -209,16 +209,20 @@ UI UX tasarımların kodlamaları yapılmıştır.
 ### Yapılması Gereken Eksiklerin Belirlenmesi & Görev Dağılımı
 
 Whatsapp üzerinden yazışmalar
+
 ![image](https://github.com/user-attachments/assets/f7c78a44-d702-4442-be0f-524f9740e2de)
 
 ### Kodlardaki hataların düzeltilmesi 
 Yeni güncelleştirmelerden ötürü olan bug'ların giderilmesi ve uygulamanın işlevesel hale getirilmesi
 
 ### Logo Tasarımının Netleşmesi
+
 Logo için yapılan çeşitli tasarımlar
+
 ![WhatsApp Bild 2024-07-31 um 12 44 39_72f8297e](https://github.com/user-attachments/assets/faad7f7f-3087-4ca2-804e-bf91f2f993cf)
 
 Seçilen Logomuz
+
 ![image](https://github.com/user-attachments/assets/9d51da0e-df96-426c-86f7-9613fc2f977f)
 
 ### Uygulama Sunumu Üzerine Çalışılması
@@ -250,8 +254,7 @@ Seçilen Logomuz
 - Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.
 - Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task)
 
-Miro Ekran Görüntüsü
-Miro yerine bu hafta süreci hızlandırmak adına sprintler ve takip sürecinde Whatsapp kullanılmıştır.
+#### Miro yerine bu hafta süreci hızlandırmak adına sprintler ve takip sürecinde Whatsapp kullanılmıştır.
 ![image](https://github.com/user-attachments/assets/e9a2bc0a-346e-48e4-82d2-f923b65f7502)
 
 ---
