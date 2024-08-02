@@ -3,7 +3,7 @@
 ### Proje Özeti
  Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet önerileri sunan yenilikçi bir mobil uygulamadır. Bu uygulama, kullanıcıların stillerini analiz ederek kişiselleştirilmiş kıyafet önerileri sunmayı hedeflemektedir. Kullanıcı dostu arayüzü ve yapay zeka destekli algoritması sayesinde, kullanıcıların giyim tercihlerine en uygun kombinleri önerir.
 
-### Eşsiz özellikleri
+### 🌟 Eşsiz özellikleri
  - Kişiselleştirilmiş yapay zeka stil asistanı ile kişiye özgü kombinler önermesi 
  - Kullanıcıların yapay zeka yardımıyla mağazaya gitmeden veya o ürünü satın almadan en yeni tasarımları ve kıyafetleri üzerlerinde deneyebilmesi
  - Moda tasarımcılarının en yeni tasarımlarını sergileyebilecekleri bir ortam 
