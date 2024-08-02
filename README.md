@@ -3,8 +3,16 @@
 ### Proje Özeti
  Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet önerileri sunan yenilikçi bir mobil uygulamadır. Bu uygulama, kullanıcıların stillerini analiz ederek kişiselleştirilmiş kıyafet önerileri sunmayı hedeflemektedir. Kullanıcı dostu arayüzü ve yapay zeka destekli algoritması sayesinde, kullanıcıların giyim tercihlerine en uygun kombinleri önerir.
 
-----
+### Eşsiz özellikleri
+ - Kişiselleştirilmiş yapay zeka stil asistanı ile kişiye özgü kombinler önermesi 
+ - Kullanıcıların yapay zeka yardımıyla mağazaya gitmeden veya o ürünü satın almadan en yeni tasarımları ve kıyafetleri üzerlerinde deneyebilmesi
+ - Moda tasarımcılarının en yeni tasarımlarını sergileyebilecekleri bir ortam 
 
+## 💻ℹ️ [Tanıtım Sitesi/Landing Page](http://fit4try.dorik.io/)
+
+## 📹 [Uygulama Tanıtım Videosu](https://www.canva.com/design/DAGMqpOaDHU/FIP8-Dhy9tnlg55f6kecrQ/watch?utm_content=DAGMqpOaDHU&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel)
+----
+## 📌 Proje Süreci & Sprintler
 <details>
   <summary><h1>🏃🏻‍➡️ Sprint 1 🏃🏻‍♀️‍➡️</h1></summary>
 
@@ -273,8 +281,6 @@ Whatsapp üzerinden mesajla haberleşerek bu sprint sürecinde hızlı ilerlenmi
 Uygulamadaki eksiklere odaklanılıp hızlıca görev dağılımı yapılmıştır.
 
 </details>
-
-[Uygulama Tanıtım Videosu](https://www.canva.com/design/DAGMqpOaDHU/FIP8-Dhy9tnlg55f6kecrQ/watch?utm_content=DAGMqpOaDHU&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel)
 
 </details>
 
