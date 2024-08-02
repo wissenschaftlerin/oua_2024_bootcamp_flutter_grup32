@@ -8,6 +8,7 @@
  - Kullanıcıların yapay zeka yardımıyla mağazaya gitmeden veya o ürünü satın almadan en yeni tasarımları ve kıyafeleri üzerinde deneyebilmesi
  - Moda tasarımcılarının en yeni tasarımlarını sergileyebilecekleri bir ortam 
 
+[Tanıtım Sitesi/Landing Page](http://fit4try.dorik.io/)
 ----
 
 <details>
