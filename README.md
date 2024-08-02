@@ -8,6 +8,7 @@
  - Kullanıcıların yapay zeka yardımıyla mağazaya gitmeden veya o ürünü satın almadan en yeni tasarımları ve kıyafetleri üzerlerinde deneyebilmesi
  - Moda tasarımcılarının en yeni tasarımlarını sergileyebilecekleri bir ortam 
 
+## 📲 [FIT4TRY Uygulama Apk İndirme](https://drive.google.com/file/d/1ikk6hZMd8icfXx74y4ItxfDUgQHBCjlI/view?usp=sharing)
 ## 💻ℹ️ [Tanıtım Sitesi/Landing Page](http://fit4try.dorik.io/)
 
 ## 📹 [Uygulama Tanıtım Videosu](https://www.canva.com/design/DAGMqpOaDHU/FIP8-Dhy9tnlg55f6kecrQ/watch?utm_content=DAGMqpOaDHU&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel)
