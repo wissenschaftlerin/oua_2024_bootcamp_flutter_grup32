@@ -249,6 +249,8 @@ Seçilen Logomuz
 
 92'den fazla UI tasarım figma üzerinden yapıldı.
 
+**Figma Tasarımı:** [Figma Link](https://www.figma.com/design/y144lYicDkEE8IshJttFat/Fit4Try---UI-Design?node-id=0-1)
+
  ![WhatsApp Bild 2024-08-01 um 11 20 37_aa9c9b41](https://github.com/user-attachments/assets/aa3100bb-2c51-4625-b9f6-39846d6d2fb8)
  ![WhatsApp Bild 2024-08-01 um 11 20 57_6548a171](https://github.com/user-attachments/assets/1068d44a-9218-4be2-ba20-74b39e64f950)
  ![WhatsApp Bild 2024-08-01 um 11 21 13_66b95afa](https://github.com/user-attachments/assets/e8661e08-65ea-412b-b237-29f7bfc5bce0)
