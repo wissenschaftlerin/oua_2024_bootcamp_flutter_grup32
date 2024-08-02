@@ -258,6 +258,9 @@ Seçilen Logomuz
  ![WhatsApp Bild 2024-08-01 um 11 22 14_fc655fb7](https://github.com/user-attachments/assets/5a850a83-db9f-437d-9bb6-1c5e81fef0d7)
  ![WhatsApp Bild 2024-08-01 um 11 22 29_b31bbcbe](https://github.com/user-attachments/assets/f834cd6a-e379-4173-b84e-12639191b969)
 
+Miro Board
+
+![image](https://github.com/user-attachments/assets/421442ec-f286-4254-8fe6-22ba6dbb0d1d)
 
 ## Sprint Notları
 
@@ -267,7 +270,7 @@ Seçilen Logomuz
 - Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.
 - Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task)
 
-#### Miro yerine bu hafta süreci hızlandırmak adına sprintler ve takip sürecinde Whatsapp kullanılmıştır.
+#### Miro yerine bu hafta süreci hızlandırmak adına sprintler ve takip sürecinde daha çok Whatsapp kullanılmıştır.
 ![image](https://github.com/user-attachments/assets/e9a2bc0a-346e-48e4-82d2-f923b65f7502)
 
 ---
