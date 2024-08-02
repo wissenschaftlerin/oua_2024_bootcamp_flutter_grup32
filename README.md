@@ -207,6 +207,7 @@ UI UX tasarımların kodlamaları yapılmıştır.
 
 </details>
 
+[Uygulama Tanıtım Videosu](https://www.canva.com/design/DAGMqpOaDHU/FIP8-Dhy9tnlg55f6kecrQ/watch?utm_content=DAGMqpOaDHU&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel)
 
 </details>
 
