@@ -5,7 +5,7 @@
 
 ### Eşsiz özellikleri
  - Kişiselleştirilmiş yapay zeka stil asistanı ile kişiye özgü kombinler önermesi 
- - Kullanıcıların yapay zeka yardımıyla mağazaya gitmeden veya o ürünü satın almadan en yeni tasarımları ve kıyafeleri üzerinde deneyebilmesi
+ - Kullanıcıların yapay zeka yardımıyla mağazaya gitmeden veya o ürünü satın almadan en yeni tasarımları ve kıyafetleri üzerlerinde deneyebilmesi
  - Moda tasarımcılarının en yeni tasarımlarını sergileyebilecekleri bir ortam 
 
 ## 💻ℹ️ [Tanıtım Sitesi/Landing Page](http://fit4try.dorik.io/)
