@@ -1,24 +1,16 @@
 # 📌 FIT4TRY: 2024 Oyun ve Uygulama Akademisi Mezuniyet Bootcamp Uygulama Geliştirme Grup 32 Projesi 📱
 ### 🎯 Uygulama Adı:  Fit4Try 👗📱
 ### ✍🏻 Uygulama Özeti
-MoodTune, kullanıcıların duygu durumlarına, semptomlarına veya ruh hâllerine göre kişiye özel müzik önerileri sunan yenilikçi bir mobil uygulamadır. Yapay zeka destekli algoritması sayesinde kullanıcıların ruh hâlini analiz eder ve buna uygun müzik listeleri oluşturarak zihinsel rahatlama ve duygusal dengeyi desteklemeyi hedefler.
+ Fit4Try, kullanıcıların giyim tarzlarını öğrenip onlara uygun kıyafet önerileri sunan yenilikçi bir mobil uygulamadır. Bu uygulama, kullanıcıların stillerini analiz ederek kişiselleştirilmiş kıyafet önerileri sunmayı hedeflemektedir. Kullanıcı dostu arayüzü ve yapay zeka destekli algoritması sayesinde, kullanıcıların giyim tercihlerine en uygun kombinleri önerir.
 
-Kullanıcı dostu arayüzü ve semptom bazlı kişiselleştirme sistemiyle MoodTune, sadece bir müzik uygulaması değil, aynı zamanda günlük yaşam kalitesini artırmayı amaçlayan dijital bir refakatçidir.
+### 🌟 Eşsiz özellikleri
+ - Kişiselleştirilmiş yapay zeka stil asistanı ile kişiye özgü kombinler önermesi 
+ - Kullanıcıların yapay zeka yardımıyla mağazaya gitmeden veya o ürünü satın almadan en yeni tasarımları ve kıyafetleri üzerlerinde deneyebilmesi
+ - Moda tasarımcılarının en yeni tasarımlarını sergileyebilecekleri bir ortam 
 
-### 🌟 Eşsiz Özellikleri
-- 🎯 Yapay Zeka Destekli Duygu Analizi: Kullanıcının anlık duygu durumu (örneğin baş ağrısı, stres, huzursuzluk) veya günlük ruh hâli bazında analiz yapar.
-- 🎵 Kişiye Özel Müzik Önerileri: Kullanıcının semptomlarına veya hislerine en uygun müzik listelerini önerir.
-- 🧠 Zihinsel İyilik Hâli Desteği: Müzik terapisine dayalı içeriklerle kullanıcının zihinsel sağlığına katkı sağlar.
-- 🗂️ Profil & Takip Özelliği: Kullanıcılar ruh hâllerini zamanla takip edebilir, geçmiş önerilerine göz atabilir.
-- 💬 Semptom Giriş Sistemi: Baş ağrısı, uykusuzluk, stres gibi şikâyetleri girerek otomatik olarak ruh hâline uygun müzik önerisi alabilirler.
-- 🌐 Spotify API Entegrasyonu: Kullanıcıların önerilen müzikleri doğrudan Spotify üzerinden dinleyebilmesi.
-
-### 👥 Hedef Kitle
-- Zihinsel Sağlığına Önem Veren Kullanıcılar: Günlük stresle başa çıkmak ve rahatlamak isteyen bireyler.
-- Öğrenciler ve Çalışanlar: Yoğun tempoda zihinsel denge arayan kullanıcılar.
-- Müzikseverler: Ruh hâline uygun müziklerle kendini ifade etmek isteyen herkes.
-- Duygu Takibi Yapmak İsteyenler: Kendi ruh hâlini daha iyi anlamak ve analiz etmek isteyen bireyler.
-
+## 📲 [FIT4TRY Uygulama Apk İndirme](https://drive.google.com/file/d/1ikk6hZMd8icfXx74y4ItxfDUgQHBCjlI/view?usp=sharing)
+## 💻ℹ️ [Tanıtım Sitesi/Landing Page](http://fit4try.dorik.io/)
+## 📹 [Uygulama Tanıtım Videosu](https://www.canva.com/design/DAGMqpOaDHU/FIP8-Dhy9tnlg55f6kecrQ/watch?utm_content=DAGMqpOaDHU&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel)
 ----
 ## 📌 Proje Süreci & Sprintler
 <details>
